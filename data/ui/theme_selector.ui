@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ThemeSelector" parent="GtkBox">
+    <style>
+      <class name="themeselector"/>
+    </style>
+    <property name="hexpand">True</property>
+    <child>
+      <object class="GtkBox">
+        <property name="hexpand">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkCheckButton" id="_follow">
+            <style>
+              <class name="theme-selector"/>
+              <class name="follow"/>
+            </style>
+            <property name="hexpand">True</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">False</property>
+            <property name="action-name">app.set-style-variant</property>
+            <property name="action-target">'follow'</property>
+            <!-- Translators: Description, tooltip -->
+            <property name="tooltip-text" translatable="yes">Follow system style</property>
+            <accessibility>
+              <!-- Translators: Description, accessibility -->
+              <property name="label" translatable="yes">Follow system style</property>
+            </accessibility>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="_light">
+            <style>
+              <class name="theme-selector"/>
+              <class name="light"/>
+            </style>
+            <property name="hexpand">True</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">False</property>
+            <property name="action-name">app.set-style-variant</property>
+            <property name="action-target">'light'</property>
+            <!-- Translators: Description, tooltip -->
+            <property name="tooltip-text" translatable="yes">Light style</property>
+            <accessibility>
+              <!-- Translators: Description, accessibility -->
+              <property name="label" translatable="yes">Light style</property>
+            </accessibility>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="_dark">
+            <style>
+              <class name="theme-selector"/>
+              <class name="dark"/>
+            </style>
+            <property name="hexpand">True</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">False</property>
+            <property name="action-name">app.set-style-variant</property>
+            <property name="action-target">'dark'</property>
+            <!-- Translators: Description, tooltip -->
+            <property name="tooltip-text" translatable="yes">Dark style</property>
+            <accessibility>
+              <!-- Translators: Description, accessibility -->
+              <property name="label" translatable="yes">Dark style</property>
+            </accessibility>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

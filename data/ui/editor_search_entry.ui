@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="EditorSearchEntry" parent="GtkBox">
+    <property name="width-request">150</property>
+    <child>
+      <object class="GtkImage">
+        <property name="icon-name">edit-find-symbolic</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkText" id="text">
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <signal name="activate" handler="_on_activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="_info">
+        <property name="xalign">1</property>
+        <attributes>
+          <attribute name="foreground-alpha" value="33000"/>
+          <attribute name="font-features" value="tnum"/>
+        </attributes>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="buffer-high-contrast-dark" _name="Buffer Dark (High Contrast)" version="1.0">
+  <author>Chris Heywood</author>
+  <_description>Helps Buffer highlight search results (high contrast)</_description>
+
+  <metadata>
+    <property name="variant">dark</property>
+    <property name="light-variant">buffer-high-contrast</property>
+  </metadata>
+
+  <!-- Named Colors -->
+  <color name="dark_6"                                 value="#000000"/>
+  <color name="light_1"                                value="#FFFFFF"/>
+  <color name="light_5"                                value="#C0BFBC"/>
+  <color name="yellow_1"                               value="#F9F06B"/>
+  <color name="yellow_5"                               value="#E5A50A"/>
+
+  <style name="text"                                   foreground="light_1"/>
+
+  <style name="search-match"                           foreground="dark_6" background="yellow_5"/>
+  <style name="current-search-match"                   foreground="dark_6" background="yellow_1"/>
+</style-scheme>

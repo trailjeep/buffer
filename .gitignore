@@ -1,0 +1,7 @@
+/build
+/.flatpak-builder
+__pycache__
+*.o
+/**/*.swp
+/*~
+/.*.sw[nop]

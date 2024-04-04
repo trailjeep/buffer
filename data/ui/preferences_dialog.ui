@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="PreferencesDialog" parent="AdwPreferencesDialog">
+    <child>
+      <object class="AdwPreferencesPage">
+        <property name="icon-name">settings-symbolic</property>
+        <!-- Translators: Title -->
+        <property name="title" translatable="yes">Interface</property>
+        <child>
+          <object class="AdwPreferencesGroup">
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Use Monospace Font</property>
+                <property name="action-name">settings.use-monospace-font</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Limit Line Length</property>
+                <property name="action-name">settings.line-length</property>
+                <!-- Translators: Description, preference -->
+                <property name="subtitle" translatable="yes">When enabled use control up and down to fine tune.</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Check Spelling</property>
+                <property name="action-name">settings.spelling-enabled</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Quit Only Closes Current Window</property>
+                <property name="action-name">settings.quit-closes-window</property>
+                <!-- Translators: Description, preference -->
+                <property name="subtitle" translatable="yes">When disabled control Q will close all windows (on all workspaces).</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Show Window Close Button</property>
+                <property name="action-name">settings.show-close-button</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Save Emergency Recovery Files</property>
+                <property name="action-name">settings.emergency-recovery-files</property>
+                <!-- Translators: Description, preference -->
+                <property name="subtitle" translatable="yes">Each buffer is saved when (and only when) closed. The last ten are kept.</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="margin-top">20</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkButton" id="_show_files_button">
+                    <!-- Translators: Button -->
+                    <property name="label" translatable="yes">Show Recovery Files</property>
+                    <signal name="clicked" handler="_on_show_recovery_files"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+          </object>
+        </child>
+
+      </object>
+    </child>
+
+
+  </template>
+</interface>

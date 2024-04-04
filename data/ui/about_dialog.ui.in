@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="adw" version="1.0"/>
+  <object class="AdwAboutDialog" id="AboutDialog">
+    <property name="application-name" comments="About dialog application name">Buffer</property>
+    <property name="application-icon">@APPID@</property>
+    <property name="version">@VERSION@</property>
+    <property name="copyright">@COPYRIGHT@</property>
+    <property name="website">@PACKAGE_URL@</property>
+    <property name="developers">@CONTRIBUTORS@</property>
+    <property name="developer-name" comments="About dialog developer name, do not translate">Chris Heywood</property>
+    <property name="translator-credits" translatable="yes" comments="Add your name to the translator credits list">translator-credits</property>
+    <!--<property name="designers">@ARTISTS@</property>-->
+    <property name="license-type">gpl-3-0</property>
+    <property name="issue-url">https://gitlab.gnome.org/cheywood/buffer/-/issues</property>
+  </object>
+</interface>

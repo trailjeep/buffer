@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="buffer" _name="Buffer" version="1.0">
+  <author>Chris Heywood</author>
+  <_description>Helps Buffer highlight search results</_description>
+
+  <metadata>
+    <property name="variant">light</property>
+    <property name="dark-variant">buffer-dark</property>
+  </metadata>
+
+  <!-- Named Colors -->
+  <color name="dark_3"                                 value="#504E55"/>
+  <color name="dark_6"                                 value="#000000"/>
+  <color name="yellow_2"                               value="#F8E45C"/>
+  <color name="yellow_4"                               value="#F5C211"/>
+
+  <style name="text"                                   foreground="dark_3"/>
+
+  <style name="search-match"                           foreground="dark_3" background="yellow_2"/>
+  <style name="current-search-match"                   foreground="dark_6" background="yellow_4"/>
+</style-scheme>

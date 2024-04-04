@@ -1,0 +1,23 @@
+include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+
+flake8:
+    image: python:3.8
+    script:
+        - pip install flake8
+        - cd buffer && flake8
+
+black:
+    image: python:3.8
+    script:
+        - pip install black
+        - black --check --diff .
+
+flatpak:
+    variables:
+        MANIFEST_PATH: "build-aux/flatpak/org.gnome.gitlab.cheywood.Buffer.Devel.json"
+        FLATPAK_MODULE: "buffer"
+        RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
+        APP_ID: "org.gnome.gitlab.cheywood.Buffer"
+        BUNDLE: "org.gnome.gitlab.cheywood.Buffer.Devel.flatpak"
+        MESON_ARGS: "-Dprofile=Devel"
+    extends: .flatpak

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <section>
+      <item>
+        <attribute name="custom">theme</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="custom">fontsize</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <!-- Translators: Menu item -->
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.settings</attribute>
+      </item>
+      <item>
+        <!-- Translators: Menu item, Buffer is the application name and shouldn't be translated -->
+        <attribute name="label" translatable="yes">About Buffer</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="Window" parent="AdwApplicationWindow">
+    <property name="content">
+      <object class="AdwToolbarView" id="_toolbar_view">
+        <property name="reveal-top-bars">False</property>
+        <child type="top">
+          <object class="EditorSearchHeaderBar" id="_search_header_bar"/>
+        </child>
+        <property name="content">
+          <object class="GtkOverlay">
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkScrolledWindow">
+
+                <child>
+                  <object class="EditorTextView" id="_textview">
+                    <child>
+                      <object class="GtkEventControllerKey">
+                        <property name="propagation-phase">capture</property>
+                        <signal name="key-pressed" handler="_on_key_pressed" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkGestureClick">
+                        <property name="button">0</property>
+                        <signal name="pressed" handler="_on_gesture_click" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="editor"/>
+                </style>
+              </object>
+            </child>
+
+            <child type="overlay">
+              <object class="GtkRevealer" id="_revealer">
+                <property name="transition-type">crossfade</property>
+                <property name="valign">start</property>
+                <property name="halign">end</property>
+                <property name="child">
+                  <object class="GtkBox">
+                    <child>
+                      <object class="GtkMenuButton" id="_menu_button">
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="margin-start">8</property>
+                        <property name="margin-end">8</property>
+                        <property name="margin-top">8</property>
+                        <property name="margin-bottom">8</property>
+                        <property name="has-frame">False</property>
+                        <property name="menu-model">menu</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwBin">
+                        <property name="css-name">windowcontrols</property>
+                        <child>
+                          <object class="GtkButton" id="_close_button">
+                            <property name="icon-name">window-close-symbolic</property>
+                            <property name="margin-end">8</property>
+                            <property name="has-frame">True</property>
+                            <signal name="clicked" handler="_on_window_close_clicked"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="TimedRevealerNotification" id="_timed_notification"/>
+            </child>
+            <child>
+              <object class="GtkEventControllerMotion">
+                <signal name="motion" handler="_on_motion" swapped="no"/>
+              </object>
+            </child>
+
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

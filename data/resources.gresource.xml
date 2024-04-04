@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/gitlab/cheywood/Buffer">
+    <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/editor_text_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/editor_search_entry.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/editor_search_header_bar.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/font_size_selector.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/theme_selector.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/timed_revealer_notification.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
+
+    <file compressed="true">ui/base_style.css</file>
+
+    <file preprocess="xml-stripblanks">icons/scalable/status/down-large-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/up-large-symbolic.svg</file>
+  </gresource>
+</gresources>

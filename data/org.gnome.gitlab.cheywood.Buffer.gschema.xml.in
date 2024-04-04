@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/org/gnome/gitlab/cheywood/Buffer/" id="@APP_ID@" gettext-domain="@GETTEXT_PACKAGE@">
+        <key type="i" name="font-size">
+            <default>14</default>
+            <summary>Font size</summary>
+        </key>
+        <key type="i" name="emergency-recovery-files">
+            <default>0</default>
+            <summary>Emergency recovery files</summary>
+            <description>Number of emergency recovery files to keep</description>
+        </key>
+        <key type="s" name="last-launched-version">
+            <default>''</default>
+            <summary>Last launched version</summary>
+            <description>The last version of the app that was run. Shouldn't be edited.</description>
+        </key>
+        <key type="i" name="line-length">
+            <default>100000</default>
+            <summary>Line length</summary>
+            <description>Line length (pixels).</description>
+            <range min="50" max="100000"/>
+        </key>
+        <key type="b" name="show-close-button">
+            <default>false</default>
+            <summary>Show a close button</summary>
+            <description>Display an X for closing each window.</description>
+        </key>
+        <key type="b" name="spelling-enabled">
+            <default>true</default>
+            <summary>Spelling enabled</summary>
+            <description>Whether spell checking is enabled.</description>
+        </key>
+         <key type="s" name="spelling-language">
+            <default>''</default>
+            <summary>Spelling language</summary>
+            <description>Language tag to attempt to use by default for spelling.</description>
+        </key>
+        <key name="style-variant" type="s">
+            <choices>
+                <choice value="follow"/>
+                <choice value="light"/>
+                <choice value="dark"/>
+            </choices>
+            <default>'follow'</default>
+            <summary>Colour scheme style</summary>
+            <description>Choosing to follow desktop colour style or enforce dark or light visuals.</description>
+        </key>
+        <key type="b" name="quit-closes-window">
+            <default>true</default>
+            <summary>Quit only closes current window</summary>
+            <description>If disabled quit will close all windows.</description>
+        </key>
+        <key type="ai" name="window-size">
+            <default>[1000, 750]</default>
+            <summary>Window size</summary>
+            <description>Remember the window size.</description>
+        </key>
+        <key type="b" name="use-monospace-font">
+            <default>true</default>
+            <summary>Whether to use a monospace font</summary>
+            <description>The specific fonts are sourced from GNOME's monospace and document font settings</description>
+        </key>
+    </schema>
+</schemalist>

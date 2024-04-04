@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="TimedRevealerNotification" parent="GtkRevealer">
+    <property name="transition-type">crossfade</property>
+    <property name="valign">start</property>
+    <property name="halign">center</property>
+    <property name="child">
+      <object class="GtkBox">
+        <child>
+          <object class="GtkImage" id="_icon">
+            <!--<property name="icon-name">network-transmit-receive-symbolic</property>-->
+            <property name="visible">False</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="_label">
+            <property name="wrap">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="_button">
+            <property name="visible">False</property>
+            <property name="margin-start">10</property>
+          </object>
+        </child>
+        <style>
+          <class name="app-notification"/>
+        </style>
+      </object>
+    </property>
+  </template>
+</interface>

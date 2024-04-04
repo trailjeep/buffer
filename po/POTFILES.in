@@ -1,0 +1,26 @@
+#List of source files containing translatable strings.
+# Please keep this file sorted alphabetically, excepting gschema at the bottom.
+data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in
+data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in
+data/ui/about_dialog.ui.in
+data/ui/editor_search_entry.ui
+data/ui/editor_search_header_bar.ui
+data/ui/editor_text_view.ui
+data/ui/font_size_selector.ui
+data/ui/preferences_dialog.ui
+data/ui/theme_selector.ui
+data/ui/timed_revealer_notification.ui
+data/ui/window.ui
+buffer/application.py
+buffer/config_manager.py
+buffer/editor_search_entry.py
+buffer/editor_search_header_bar.py
+buffer/editor_text_view.py
+buffer/emergency_saves_manager.py
+buffer/font_size_selector.py
+buffer/migration_assistant.py
+buffer/preferences_dialog.py
+buffer/theme_selector.py
+buffer/timed_revealer_notification.py
+buffer/widgets.py
+buffer/window.py
