@@ -2,9 +2,9 @@
 
 Celebrating transience, Buffer provides a minimal editing space for all those things that don't need keeping. Designed for keyboard workflows on desktop.
 
-![screenshot](https://gitlab.gnome.org/cheywood/buffer/raw/main/data/screenshots/main.png)
+<img src="https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/main.png" width="700px" />
 
-![screenshot](https://gitlab.gnome.org/cheywood/buffer/raw/main/data/screenshots/preferences.png)
+<img src="https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/preferences.png" width="700px" />
 
 ## Install
 
