@@ -22,7 +22,7 @@
             <range min="50" max="100000"/>
         </key>
         <key type="b" name="show-close-button">
-            <default>false</default>
+            <default>true</default>
             <summary>Show a close button</summary>
             <description>Display an X for closing each window.</description>
         </key>
