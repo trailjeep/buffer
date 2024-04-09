@@ -78,11 +78,12 @@ class EditorTextView(GtkSource.View):
             self.set_bottom_margin(y_margin)
 
         # Update side margins
-        width = self.get_allocated_width()
         if width < 1:
             return
         if self.__line_length > 0 and width > self.__line_length:
             x_margin = (width - self.__line_length) / 2
+        elif width <= min_width_for_y_margin:
+            x_margin = 0
         else:
             x_margin = y_margin
         if self.get_left_margin() != x_margin:
