@@ -220,6 +220,15 @@ class Window(Adw.ApplicationWindow):
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
 
+    def __on_line_length_limit_toggle(
+        self, _action: Gio.SimpleAction, _param: GLib.Variant
+    ) -> None:
+        setting_maximum = config_manager.get_line_length_max()
+        if config_manager.get_line_length() == setting_maximum:
+            config_manager.set_line_length(config_manager.DEFAULT_LINE_LENGTH)
+        else:
+            config_manager.set_line_length(setting_maximum)
+
     def __on_font_family_changed(self, _settings: Gio.Settings, _key: str) -> None:
         self.__load_font_family_from_setting()
 
@@ -326,6 +335,11 @@ class Window(Adw.ApplicationWindow):
         action.connect("activate", self.__on_decrease_line_length)
         action_group.add_action(action)
         app.set_accels_for_action("win.decrease-line-length", ["<Control>Down"])
+
+        action = Gio.SimpleAction.new("toggle-line-length-limit")
+        action.connect("activate", self.__on_line_length_limit_toggle)
+        action_group.add_action(action)
+        app.set_accels_for_action("win.toggle-line-length-limit", ["<Shift><Control>l"])
 
         action = Gio.SimpleAction.new("close")
         action.connect("activate", self.__on_close_shortcut)
