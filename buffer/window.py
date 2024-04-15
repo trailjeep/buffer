@@ -10,6 +10,7 @@ from typing import Optional
 
 import buffer.config_manager as config_manager
 from buffer import const
+from buffer.editor_text_view import EditorTextView
 from buffer.font_size_selector import FontSizeSelector
 from buffer.theme_selector import ThemeSelector
 
@@ -213,7 +214,7 @@ class Window(Adw.ApplicationWindow):
         current_length = config_manager.get_line_length()
         new_length = current_length - self.LINE_LENGTH_STEP
         if current_length == setting_max:
-            new_length = min(self.get_width(), config_manager.DEFAULT_LINE_LENGTH)
+            new_length = min(self.get_width(), EditorTextView.DEFAULT_LINE_LENGTH)
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
         elif new_length >= self.LINE_LENGTH_STEP:
@@ -225,7 +226,7 @@ class Window(Adw.ApplicationWindow):
     ) -> None:
         setting_maximum = config_manager.get_line_length_max()
         if config_manager.get_line_length() == setting_maximum:
-            config_manager.set_line_length(config_manager.DEFAULT_LINE_LENGTH)
+            config_manager.set_line_length(EditorTextView.DEFAULT_LINE_LENGTH)
         else:
             config_manager.set_line_length(setting_maximum)
 

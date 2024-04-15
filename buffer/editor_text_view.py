@@ -30,6 +30,7 @@ class EditorTextView(GtkSource.View):
 
     BASE_MARGIN = 36
     MINIMUM_MARGIN = 10
+    DEFAULT_LINE_LENGTH = 800
 
     def __init__(self):
         super().__init__()

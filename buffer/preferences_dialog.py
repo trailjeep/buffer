@@ -1,6 +1,7 @@
 from gi.repository import Adw, Gio, GLib, Gtk
 
 import buffer.config_manager as config_manager
+from buffer.editor_text_view import EditorTextView
 from buffer.emergency_saves_manager import EmergencySavesManager
 
 
@@ -55,7 +56,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
     def __on_line_length_state_change(self, action: Gio.SimpleAction, state: bool) -> None:
         action.set_state(state)
         setting_maximum = config_manager.get_line_length_max()
-        new_value = config_manager.DEFAULT_LINE_LENGTH if state else setting_maximum
+        new_value = EditorTextView.DEFAULT_LINE_LENGTH if state else setting_maximum
         config_manager.set_line_length(new_value)
 
     def __on_emergency_recovery_files_state_change(
