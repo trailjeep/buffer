@@ -200,7 +200,7 @@ class Window(Adw.ApplicationWindow):
             return
         else:
             new_length = current_length + self.LINE_LENGTH_STEP
-        if new_length < self.get_width():
+        if new_length < self.get_width() - 2 * self._textview.BASE_MARGIN:
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
         else:
