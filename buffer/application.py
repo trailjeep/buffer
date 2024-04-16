@@ -4,6 +4,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 import logging
+from signal import signal, SIGINT, SIGTERM
 from typing import Callable, Optional
 
 from buffer import const
@@ -49,6 +50,9 @@ class Application(Adw.Application):
         self.connect("handle-local-options", self.__on_handle_local_options)
         self.connect("startup", self.__on_startup)
         self.connect("activate", self.__on_activate)
+
+        signal(SIGINT, self.__on_stop_signal)
+        signal(SIGTERM, self.__on_stop_signal)
 
     def __on_handle_local_options(self, _obj: GObject.Object, options: GLib.VariantDict) -> int:
         """Handle options, setup logging."""
@@ -125,6 +129,12 @@ class Application(Adw.Application):
         return False
 
     def __on_quit_shortcut(self, _window: Gtk.Window, _action_param: GLib.Variant) -> None:
+        self.__quit()
+
+    def __on_stop_signal(self, _sig_num: int, _frame) -> None:
+        self.__quit()
+
+    def __quit(self) -> None:
         if config_manager.get_quit_closes_window():
             self.get_active_window().close()
         else:
