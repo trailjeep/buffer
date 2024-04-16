@@ -33,6 +33,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
             config_manager.SPELLING_ENABLED,
             config_manager.QUIT_CLOSES_WINDOW,
             config_manager.SHOW_CLOSE_BUTTON,
+            config_manager.SHOW_LINE_NUMBERS,
         ):
             build_simple_binary_action(key)
 
