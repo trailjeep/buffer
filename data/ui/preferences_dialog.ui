@@ -24,7 +24,7 @@
                 <property name="title" translatable="yes">Limit Line Length</property>
                 <property name="action-name">settings.line-length</property>
                 <!-- Translators: Description, preference -->
-                <property name="subtitle" translatable="yes">When enabled use control up and down to fine tune.</property>
+                <property name="subtitle" translatable="yes">When enabled use Ctrl + ↑ and Ctrl + ↓ to fine tune.</property>
               </object>
             </child>
 

@@ -10,6 +10,7 @@ from typing import Optional
 
 import buffer.config_manager as config_manager
 from buffer import const
+from buffer.editor_text_view import EditorTextView
 from buffer.font_size_selector import FontSizeSelector
 from buffer.theme_selector import ThemeSelector
 
@@ -200,7 +201,7 @@ class Window(Adw.ApplicationWindow):
             return
         else:
             new_length = current_length + self.LINE_LENGTH_STEP
-        if new_length < self.get_width():
+        if new_length < self.get_width() - 2 * self._textview.BASE_MARGIN:
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
         else:
@@ -213,12 +214,21 @@ class Window(Adw.ApplicationWindow):
         current_length = config_manager.get_line_length()
         new_length = current_length - self.LINE_LENGTH_STEP
         if current_length == setting_max:
-            new_length = min(self.get_width(), config_manager.DEFAULT_LINE_LENGTH)
+            new_length = min(self.get_width(), EditorTextView.DEFAULT_LINE_LENGTH)
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
         elif new_length >= self.LINE_LENGTH_STEP:
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
+
+    def __on_line_length_limit_toggle(
+        self, _action: Gio.SimpleAction, _param: GLib.Variant
+    ) -> None:
+        setting_maximum = config_manager.get_line_length_max()
+        if config_manager.get_line_length() == setting_maximum:
+            config_manager.set_line_length(EditorTextView.DEFAULT_LINE_LENGTH)
+        else:
+            config_manager.set_line_length(setting_maximum)
 
     def __on_font_family_changed(self, _settings: Gio.Settings, _key: str) -> None:
         self.__load_font_family_from_setting()
@@ -326,6 +336,11 @@ class Window(Adw.ApplicationWindow):
         action.connect("activate", self.__on_decrease_line_length)
         action_group.add_action(action)
         app.set_accels_for_action("win.decrease-line-length", ["<Control>Down"])
+
+        action = Gio.SimpleAction.new("toggle-line-length-limit")
+        action.connect("activate", self.__on_line_length_limit_toggle)
+        action_group.add_action(action)
+        app.set_accels_for_action("win.toggle-line-length-limit", ["<Shift><Control>l"])
 
         action = Gio.SimpleAction.new("close")
         action.connect("activate", self.__on_close_shortcut)

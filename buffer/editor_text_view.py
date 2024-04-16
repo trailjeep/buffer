@@ -28,6 +28,10 @@ class EditorTextView(GtkSource.View):
         "* ": "* ",
     }
 
+    BASE_MARGIN = 36
+    MINIMUM_MARGIN = 10
+    DEFAULT_LINE_LENGTH = 800
+
     def __init__(self):
         super().__init__()
 
@@ -64,15 +68,15 @@ class EditorTextView(GtkSource.View):
         # Update top and bottom margin
         min_width_for_y_margin = 400
         max_width_for_y_margin = self.__line_length if self.__line_length > 500 else 800
-        max_y_margin = 26
         if width <= min_width_for_y_margin:
-            y_margin = 0
+            y_margin = self.MINIMUM_MARGIN
         elif width < max_width_for_y_margin:
-            v_range = max_width_for_y_margin - min_width_for_y_margin
-            y_margin = int((width - min_width_for_y_margin) / v_range * float(max_y_margin))
+            value_range = max_width_for_y_margin - min_width_for_y_margin
+            y_range = float(self.BASE_MARGIN - self.MINIMUM_MARGIN)
+            in_range = width - min_width_for_y_margin
+            y_margin = self.MINIMUM_MARGIN + int(in_range / value_range * y_range)
         else:
-            y_margin = max_y_margin
-        y_margin += 10
+            y_margin = self.BASE_MARGIN
         if self.props.top_margin != y_margin:
             self.set_top_margin(y_margin)
             self.set_bottom_margin(y_margin)
@@ -80,10 +84,8 @@ class EditorTextView(GtkSource.View):
         # Update side margins
         if width < 1:
             return
-        if self.__line_length > 0 and width > self.__line_length:
+        if self.__line_length > 0 and width - 2 * self.BASE_MARGIN > self.__line_length:
             x_margin = (width - self.__line_length) / 2
-        elif width <= min_width_for_y_margin:
-            x_margin = 0
         else:
             x_margin = y_margin
         if self.get_left_margin() != x_margin:

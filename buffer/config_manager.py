@@ -18,8 +18,6 @@ QUIT_CLOSES_WINDOW = "quit-closes-window"
 USE_MONOSPACE_FONT = "use-monospace-font"
 WINDOW_SIZE = "window-size"
 
-DEFAULT_LINE_LENGTH = 800
-
 
 def get_font_size() -> int:
     """Get font size.
