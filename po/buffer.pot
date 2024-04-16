@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 11:52+0800\n"
+"POT-Creation-Date: 2024-04-16 11:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:14
 msgid ""
 "text;minimal;distraction;editor;focused;write;document;scratchpad;temporary;"
-"buffer;"
+"buffer;gnome;gtk;"
 msgstr ""
 
 #. Translators: Part of metainfo description. "Buffer" is the application name; do not translate.
