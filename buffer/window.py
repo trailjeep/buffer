@@ -43,6 +43,7 @@ class Window(Adw.ApplicationWindow):
         self.__timeout_signal_id = None
         self.__motion_during_menu_hide_timeout = None
         self.__paste_during_init = False
+        self.__cancel_action = None
 
         self.set_icon_name(const.APP_ID)
 
@@ -56,6 +57,7 @@ class Window(Adw.ApplicationWindow):
         self.__setup_actions()
 
         self.connect("close-request", self.__on_close_request)
+        self.connect("notify::visible-dialog", self.__on_visible_dialogs_changed)
 
         config_manager.settings.bind(
             config_manager.SHOW_CLOSE_BUTTON,
@@ -317,6 +319,10 @@ class Window(Adw.ApplicationWindow):
         if self._toolbar_view.get_reveal_top_bars():
             self.__exit_search()
 
+    def __on_visible_dialogs_changed(self, window, _value: GObject.ParamSpec) -> None:
+        visible = self.get_visible_dialog() is not None
+        self.__cancel_action.set_enabled(not visible)
+
     def __setup_actions(self) -> None:
         app = Gio.Application.get_default()
 
@@ -373,6 +379,7 @@ class Window(Adw.ApplicationWindow):
         action.connect("activate", self.__on_cancel)
         action_group.add_action(action)
         app.set_accels_for_action("win.go-back-or-cancel", ["Escape"])
+        self.__cancel_action = action
 
         self.insert_action_group("win", action_group)
         self.__action_group = action_group
