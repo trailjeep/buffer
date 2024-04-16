@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buffer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 11:52+0800\n"
-"PO-Revision-Date: 2024-04-16 11:52+0800\n"
+"POT-Creation-Date: 2024-04-16 11:54+0800\n"
+"PO-Revision-Date: 2024-04-16 11:55+0800\n"
 "Last-Translator: Chris Heywood <nospam@nospam.nospam>\n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -32,12 +32,15 @@ msgstr "Embrace ephemeral text"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:14
+#| msgid ""
+#| "text;minimal;distraction;editor;focused;write;document;scratchpad;"
+#| "temporary;buffer;"
 msgid ""
 "text;minimal;distraction;editor;focused;write;document;scratchpad;"
-"temporary;buffer;"
+"temporary;buffer;gnome;gtk;"
 msgstr ""
 "text;minimal;distraction;editor;focused;write;document;scratchpad;"
-"temporary;buffer;"
+"temporary;buffer;gnome;gtk;"
 
 #. Translators: Part of metainfo description. "Buffer" is the application name; do not translate.
 #: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:48
