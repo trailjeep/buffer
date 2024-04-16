@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 11:22+0800\n"
+"POT-Creation-Date: 2024-04-16 11:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,73 +82,68 @@ msgid "Zoom in"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:9
-msgid "Interface"
-msgstr ""
-
-#. Translators: Title
-#: data/ui/preferences_dialog.ui:13
+#: data/ui/preferences_dialog.ui:11
 msgid "Appearance"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:18
+#: data/ui/preferences_dialog.ui:16
 msgid "Use Monospace Font"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:26
+#: data/ui/preferences_dialog.ui:24
 msgid "Limit Line Length"
 msgstr ""
 
 #. Translators: Description, preference
-#: data/ui/preferences_dialog.ui:29
+#: data/ui/preferences_dialog.ui:27
 msgid "When enabled use Ctrl + ↑ and Ctrl + ↓ to fine tune."
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:36
+#: data/ui/preferences_dialog.ui:34
 msgid "Show Line Numbers"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:47
+#: data/ui/preferences_dialog.ui:45
 msgid "Behavior"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:52
+#: data/ui/preferences_dialog.ui:50
 msgid "Check Spelling"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:60
+#: data/ui/preferences_dialog.ui:58
 msgid "Quit Only Closes Current Window"
 msgstr ""
 
 #. Translators: Description, preference
-#: data/ui/preferences_dialog.ui:63
-msgid "When disabled control Q will close all windows (on all workspaces)."
+#: data/ui/preferences_dialog.ui:61
+msgid "When disabled Ctrl Q will close all windows (on all workspaces)."
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:70
+#: data/ui/preferences_dialog.ui:68
 msgid "Show Window Close Button"
 msgstr ""
 
 #. Translators: Title
-#: data/ui/preferences_dialog.ui:78
+#: data/ui/preferences_dialog.ui:76
 msgid "Save Emergency Recovery Files"
 msgstr ""
 
 #. Translators: Description, preference
-#: data/ui/preferences_dialog.ui:81
+#: data/ui/preferences_dialog.ui:79
 msgid ""
 "Each buffer is saved when (and only when) closed. The last ten are kept."
 msgstr ""
 
 #. Translators: Button
-#: data/ui/preferences_dialog.ui:92
+#: data/ui/preferences_dialog.ui:90
 msgid "Show Recovery Files"
 msgstr ""
 

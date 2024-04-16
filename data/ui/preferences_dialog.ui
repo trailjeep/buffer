@@ -5,8 +5,6 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">settings-symbolic</property>
-        <!-- Translators: Title -->
-        <property name="title" translatable="yes">Interface</property>
         <child>
           <object class="AdwPreferencesGroup">
             <!-- Translators: Title -->
@@ -60,7 +58,7 @@
                 <property name="title" translatable="yes">Quit Only Closes Current Window</property>
                 <property name="action-name">settings.quit-closes-window</property>
                 <!-- Translators: Description, preference -->
-                <property name="subtitle" translatable="yes">When disabled control Q will close all windows (on all workspaces).</property>
+                <property name="subtitle" translatable="yes">When disabled Ctrl Q will close all windows (on all workspaces).</property>
               </object>
             </child>
 
