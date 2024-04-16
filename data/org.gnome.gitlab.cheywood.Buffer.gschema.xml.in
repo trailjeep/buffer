@@ -26,6 +26,11 @@
             <summary>Show a close button</summary>
             <description>Display an X for closing each window.</description>
         </key>
+        <key type="b" name="show-line-numbers">
+            <default>false</default>
+            <summary>Show line numbers</summary>
+            <description>Whether line numbers are shown in the text view.</description>
+        </key>
         <key type="b" name="spelling-enabled">
             <default>true</default>
             <summary>Spelling enabled</summary>

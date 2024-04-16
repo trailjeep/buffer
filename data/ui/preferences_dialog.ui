@@ -9,6 +9,8 @@
         <property name="title" translatable="yes">Interface</property>
         <child>
           <object class="AdwPreferencesGroup">
+            <!-- Translators: Title -->
+            <property name="title" translatable="yes">Appearance</property>
 
             <child>
               <object class="AdwSwitchRow">
@@ -27,6 +29,22 @@
                 <property name="subtitle" translatable="yes">When enabled use Ctrl + ↑ and Ctrl + ↓ to fine tune.</property>
               </object>
             </child>
+
+            <child>
+              <object class="AdwSwitchRow">
+                <!-- Translators: Title -->
+                <property name="title" translatable="yes">Show Line Numbers</property>
+                <property name="action-name">settings.show-line-numbers</property>
+              </object>
+            </child>
+
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwPreferencesGroup">
+            <!-- Translators: Title -->
+            <property name="title" translatable="yes">Behavior</property>
 
             <child>
               <object class="AdwSwitchRow">

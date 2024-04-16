@@ -11,6 +11,7 @@ EMERGENCY_RECOVERY_FILES = "emergency-recovery-files"
 LAST_LAUNCHED_VERSION = "last-launched-version"
 LINE_LENGTH = "line-length"
 SHOW_CLOSE_BUTTON = "show-close-button"
+SHOW_LINE_NUMBERS = "show-line-numbers"
 SPELLING_ENABLED = "spelling-enabled"
 SPELLING_LANGUAGE = "spelling-language"
 STYLE = "style-variant"
@@ -137,6 +138,23 @@ def set_show_close_button(value: bool) -> None:
     :param bool value: New value
     """
     settings.set_boolean(SHOW_CLOSE_BUTTON, value)
+
+
+def get_show_line_numbers() -> bool:
+    """Get whether to show line numbers.
+
+    :return: Whether to show
+    :rtype: bool
+    """
+    return settings.get_value(SHOW_LINE_NUMBERS)
+
+
+def set_show_line_numbers(value: bool) -> None:
+    """Set whether to show line numbers.
+
+    :param bool value: New value
+    """
+    settings.set_boolean(SHOW_LINE_NUMBERS, value)
 
 
 def get_spelling_enabled() -> bool:

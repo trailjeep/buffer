@@ -50,6 +50,10 @@ class EditorTextView(GtkSource.View):
         config_manager.settings.connect(
             f"changed::{config_manager.FONT_SIZE}", self.__on_font_size_changed
         )
+        config_manager.settings.connect(
+            f"changed::{config_manager.SHOW_LINE_NUMBERS}", self.__on_show_line_numbers_toggled
+        )
+        self.set_property("show-line-numbers", config_manager.get_show_line_numbers())
 
         controller = Gtk.EventControllerKey()
         controller.connect("key-pressed", self.__on_key_pressed)
@@ -166,6 +170,11 @@ class EditorTextView(GtkSource.View):
             self.spellchecker_enabled = True
         else:
             self.spellchecker_enabled = False
+
+    def __on_show_line_numbers_toggled(
+        self, _obj: GObject.Object, _spec: GObject.ParamSpec
+    ) -> None:
+        self.set_property("show-line-numbers", config_manager.get_show_line_numbers())
 
     def __update_font(self) -> None:
         if not self.__css_provider:
