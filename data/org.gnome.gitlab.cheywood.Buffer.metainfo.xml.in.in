@@ -45,7 +45,9 @@
 
   <description>
     <!-- Translators: Part of metainfo description. "Buffer" is the application name; do not translate. -->
-    <p>Celebrating transience, Buffer provides a minimal editing space for all those things that don't need keeping. Designed for keyboard workflows on desktop.</p>
+    <p>Celebrating transience, Buffer provides a minimal editing space for all those things that don't need keeping.</p>
+    <!-- Translators: Part of metainfo description. -->
+    <p>Designed for keyboard workflows on desktop.</p>
   </description>
 
   <screenshots>

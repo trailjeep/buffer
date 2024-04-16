@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buffer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 11:54+0800\n"
-"PO-Revision-Date: 2024-04-16 11:55+0800\n"
+"POT-Creation-Date: 2024-04-16 12:05+0800\n"
+"PO-Revision-Date: 2024-04-16 12:05+0800\n"
 "Last-Translator: Chris Heywood <nospam@nospam.nospam>\n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -32,26 +32,30 @@ msgstr "Embrace ephemeral text"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:14
-#| msgid ""
-#| "text;minimal;distraction;editor;focused;write;document;scratchpad;"
-#| "temporary;buffer;"
 msgid ""
-"text;minimal;distraction;editor;focused;write;document;scratchpad;"
-"temporary;buffer;gnome;gtk;"
+"text;minimal;distraction;editor;focused;write;document;scratchpad;temporary;"
+"buffer;gnome;gtk;"
 msgstr ""
-"text;minimal;distraction;editor;focused;write;document;scratchpad;"
-"temporary;buffer;gnome;gtk;"
+"text;minimal;distraction;editor;focused;write;document;scratchpad;temporary;"
+"buffer;gnome;gtk;"
 
 #. Translators: Part of metainfo description. "Buffer" is the application name; do not translate.
 #: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:48
+#| msgid ""
+#| "Celebrating transience, Buffer provides a minimal editing space for all "
+#| "those things that don't need keeping. Designed for keyboard workflows on "
+#| "desktop."
 msgid ""
 "Celebrating transience, Buffer provides a minimal editing space for all "
-"those things that don't need keeping. Designed for keyboard workflows on "
-"desktop."
+"those things that don't need keeping."
 msgstr ""
 "Celebrating transience, Buffer provides a minimal editing space for all "
-"those things that don't need keeping. Designed for keyboard workflows on "
-"desktop."
+"those things that don't need keeping."
+
+#. Translators: Part of metainfo description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:50
+msgid "Designed for keyboard workflows on desktop."
+msgstr "Designed for keyboard workflows on desktop."
 
 #. Add your name to the translator credits list
 #: data/ui/about_dialog.ui.in:13

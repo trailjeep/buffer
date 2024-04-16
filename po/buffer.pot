@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 11:54+0800\n"
+"POT-Creation-Date: 2024-04-16 12:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,8 +40,12 @@ msgstr ""
 #: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:48
 msgid ""
 "Celebrating transience, Buffer provides a minimal editing space for all "
-"those things that don't need keeping. Designed for keyboard workflows on "
-"desktop."
+"those things that don't need keeping."
+msgstr ""
+
+#. Translators: Part of metainfo description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:50
+msgid "Designed for keyboard workflows on desktop."
 msgstr ""
 
 #. Add your name to the translator credits list
