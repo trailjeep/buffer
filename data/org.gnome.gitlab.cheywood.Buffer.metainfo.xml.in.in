@@ -59,12 +59,22 @@
     </screenshot>
   </screenshots>
 
-
   <releases>
-    <release version="0.9" date="2024-04-09T00:00:00Z">
+    <release version="0.9.1" date="2024-04-19T00:00:00Z">
+      <description translate="no">
+        <p>Changes</p>
+        <ul>
+          <li>Added handling of SIGINT and SIGTERM signals so that when received the (optional) emergency saves are now created before closing</li>
+          <li>Added optional line numbers</li>
+          <li>Made a set of paper cut tweaks relating to the line length limit and margins</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.9.0" date="2024-04-09T00:00:00Z">
       <description translate="no">
         <p>Initial release.</p>
       </description>
     </release>
   </releases>
+
 </component>
