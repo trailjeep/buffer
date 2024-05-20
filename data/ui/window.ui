@@ -65,27 +65,31 @@
                 <property name="valign">start</property>
                 <property name="halign">end</property>
                 <property name="child">
-                  <object class="GtkBox">
+                  <object class="GtkWindowHandle">
                     <child>
-                      <object class="GtkMenuButton" id="_menu_button">
-                        <property name="icon-name">open-menu-symbolic</property>
-                        <property name="margin-start">8</property>
-                        <property name="margin-end">8</property>
-                        <property name="margin-top">8</property>
-                        <property name="margin-bottom">8</property>
-                        <property name="has-frame">False</property>
-                        <property name="menu-model">menu</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwBin">
-                        <property name="css-name">windowcontrols</property>
+                      <object class="GtkBox">
                         <child>
-                          <object class="GtkButton" id="_close_button">
-                            <property name="icon-name">window-close-symbolic</property>
+                          <object class="GtkMenuButton" id="_menu_button">
+                            <property name="icon-name">open-menu-symbolic</property>
+                            <property name="margin-start">8</property>
                             <property name="margin-end">8</property>
-                            <property name="has-frame">True</property>
-                            <signal name="clicked" handler="_on_window_close_clicked"/>
+                            <property name="margin-top">8</property>
+                            <property name="margin-bottom">8</property>
+                            <property name="has-frame">False</property>
+                            <property name="menu-model">menu</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwBin">
+                            <property name="css-name">windowcontrols</property>
+                            <child>
+                              <object class="GtkButton" id="_close_button">
+                                <property name="icon-name">window-close-symbolic</property>
+                                <property name="margin-end">8</property>
+                                <property name="has-frame">True</property>
+                                <signal name="clicked" handler="_on_window_close_clicked"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
