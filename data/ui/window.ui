@@ -25,6 +25,7 @@
     </section>
   </menu>
   <template class="Window" parent="AdwApplicationWindow">
+    <property name="width-request">360</property>
     <property name="content">
       <object class="AdwToolbarView" id="_toolbar_view">
         <property name="reveal-top-bars">False</property>
