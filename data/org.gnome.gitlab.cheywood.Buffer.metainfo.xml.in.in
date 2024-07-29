@@ -53,9 +53,11 @@
   <screenshots>
     <screenshot type="default">
       <image>https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/main.png</image>
+      <caption>Edit screen</caption>
     </screenshot>
     <screenshot>
       <image>https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/preferences.png</image>
+      <caption>Preferences dialog</caption>
     </screenshot>
   </screenshots>
 
