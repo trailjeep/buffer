@@ -53,9 +53,13 @@
   <screenshots>
     <screenshot type="default">
       <image>https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/main.png</image>
+      <!-- Translators: A screenshot description. -->
+      <caption>Edit screen</caption>
     </screenshot>
     <screenshot>
       <image>https://gitlab.gnome.org/cheywood/buffer/-/raw/main/data/screenshots/preferences.png</image>
+      <!-- Translators: A screenshot description. -->
+      <caption>Preferences dialog</caption>
     </screenshot>
   </screenshots>
 
