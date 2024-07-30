@@ -13,3 +13,5 @@ Celebrating transience, Buffer provides a minimal editing space for all those th
 ## Issues & contact
 
 Please report all bugs in [the usual place](https://gitlab.gnome.org/cheywood/buffer/-/issues).
+
+Buffer follows the [GNOME Code of Conduct](https://conduct.gnome.org) for all communications and contributions.
