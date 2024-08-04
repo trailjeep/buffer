@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 12:05+0800\n"
+"POT-Creation-Date: 2024-08-04 20:14+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,16 @@ msgstr ""
 #. Translators: Part of metainfo description.
 #: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:50
 msgid "Designed for keyboard workflows on desktop."
+msgstr ""
+
+#. Translators: A screenshot description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:57
+msgid "Edit screen"
+msgstr ""
+
+#. Translators: A screenshot description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:62
+msgid "Preferences dialog"
 msgstr ""
 
 #. Add your name to the translator credits list
@@ -186,23 +196,23 @@ msgid "{0} of {1}"
 msgstr ""
 
 #. Translators: Description, notification
-#: buffer/window.py:202
+#: buffer/window.py:208
 msgid "Line length limit already disabled"
 msgstr ""
 
 #. Translators: Description, notification
-#: buffer/window.py:212
+#: buffer/window.py:218
 msgid "Line length limit disabled"
 msgstr ""
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:460
+#: buffer/window.py:436
 #, python-brace-format
 msgid "Line length now {0}px"
 msgstr ""
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:466
+#: buffer/window.py:442
 #, python-brace-format
 msgid "Font size now {0}pt"
 msgstr ""

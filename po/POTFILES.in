@@ -1,5 +1,5 @@
 #List of source files containing translatable strings.
-# Please keep this file sorted alphabetically, excepting gschema at the bottom.
+# Please keep this file sorted alphabetically
 data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in
 data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in
 data/ui/about_dialog.ui.in
