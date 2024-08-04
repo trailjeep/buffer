@@ -1,4 +1,4 @@
-from gi.repository import Gio, GObject, Gtk
+from gi.repository import Gio, Gtk
 
 import buffer.config_manager as config_manager
 
@@ -38,7 +38,7 @@ class FontSizeSelector(Gtk.Box):
         self.__increase_action = None
         self.__decrease_action = None
         config_manager.settings.connect(
-            f"changed::{config_manager.FONT_SIZE}", self.__on_setting_changed
+            f"changed::{config_manager.FONT_SIZE}", lambda _o, _k: self.__refresh_from_setting()
         )
 
     def setup(self):
@@ -74,45 +74,21 @@ class FontSizeSelector(Gtk.Box):
         app = Gio.Application.get_default()
 
         action = Gio.SimpleAction.new("increase")
-        action.connect("activate", self.__on_increase)
+        action.connect("activate", lambda _o, _v: self.increase())
         action_group.add_action(action)
         self.__increase_action = action
 
         action = Gio.SimpleAction.new("decrease")
-        action.connect("activate", self.__on_decrease)
+        action.connect("activate", lambda _o, _v: self.decrease())
         action_group.add_action(action)
         self.__decrease_action = action
 
         action = Gio.SimpleAction.new("reset")
-        action.connect("activate", self.__on_reset)
+        action.connect("activate", lambda _o, _v: self.reset())
         action_group.add_action(action)
 
         app.get_active_window().insert_action_group("font-size-selector", action_group)
         self.__action_group = action_group
-
-    def __on_increase(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
-        self.increase()
-
-    def __on_decrease(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
-        self.decrease()
-
-    def __on_reset(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
-        self.reset()
-
-    def __on_setting_changed(self, _settings: Gio.Settings, _key: str) -> None:
-        self.__refresh_from_setting()
 
     def __refresh_from_setting(self) -> None:
         size = config_manager.get_font_size()

@@ -48,11 +48,11 @@ class Application(Adw.Application):
         )
 
         self.connect("handle-local-options", self.__on_handle_local_options)
-        self.connect("startup", self.__on_startup)
-        self.connect("activate", self.__on_activate)
+        self.connect("startup", lambda _o: self.__on_startup())
+        self.connect("activate", lambda _o: self.__on_activate())
 
-        signal(SIGINT, self.__on_stop_signal)
-        signal(SIGTERM, self.__on_stop_signal)
+        signal(SIGINT, lambda _s, _f: self.__quit())
+        signal(SIGTERM, lambda _s, _f: self.__quit())
 
     def __on_handle_local_options(self, _obj: GObject.Object, options: GLib.VariantDict) -> int:
         """Handle options, setup logging."""
@@ -86,7 +86,7 @@ class Application(Adw.Application):
         # Let default option processing continue
         return -1
 
-    def __on_startup(self, _obj: GObject.Object) -> None:
+    def __on_startup(self) -> None:
         """Handle startup."""
         Gtk.Application.do_startup(self)
         Adw.init()
@@ -100,25 +100,15 @@ class Application(Adw.Application):
 
         self.__create_window()
 
-    def __on_activate(self, _obj: GObject.Object) -> None:
+    def __on_activate(self) -> None:
         """Handle window activation."""
         self.__apply_css()
 
         Application.apply_style()
 
-    def __on_style_change(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
+    def __on_style_change(self) -> None:
         for window in self.__windows:
             window.update_style()
-
-    def __on_new_buffer(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
-        self.__create_window()
-
-    def __on_new_from_clipboard(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
-        self.__create_window()
 
     def __on_close_request(self, window: Window) -> bool:
         if config_manager.get_emergency_recover_files() > 0:
@@ -127,12 +117,6 @@ class Application(Adw.Application):
                 self.__emergency_saves_manager.save(text)
         self.__windows.remove(window)
         return False
-
-    def __on_quit_shortcut(self, _window: Gtk.Window, _action_param: GLib.Variant) -> None:
-        self.__quit()
-
-    def __on_stop_signal(self, _sig_num: int, _frame) -> None:
-        self.__quit()
 
     def __quit(self) -> None:
         if config_manager.get_quit_closes_window():
@@ -146,8 +130,8 @@ class Application(Adw.Application):
         self.__base_css_provider = None
         self.__index_category_label_css_provider = None
         style_manager = Adw.StyleManager.get_default()
-        style_manager.connect("notify::dark", self.__on_style_change)
-        style_manager.connect("notify::high-contrast", self.__on_style_change)
+        style_manager.connect("notify::dark", lambda _o, _v: self.__on_style_change())
+        style_manager.connect("notify::high-contrast", lambda _o, _v: self.__on_style_change())
 
     def __add_cli_options(self) -> None:
         self.add_main_option(
@@ -184,23 +168,32 @@ class Application(Adw.Application):
             if shortcut is not None:
                 self.set_accels_for_action(f"app.{name}", [shortcut])
 
-        add_action("about", self.__show_about_dialog)
-        add_action("quit", self.__on_quit_shortcut, "<Control>q")
-        add_action("settings", self.__show_preferences_dialog, "<Control>comma")
-        add_action("new", self.__on_new_buffer, "<Control>n")
-        add_action("new-from-clipboard", self.__on_new_from_clipboard, "<Control><Shift>v")
+        add_action("about", lambda _o, _v: self.__show_about_dialog())
+        add_action("quit", lambda _o, _v: self.__quit(), "<Control>q")
+        add_action("settings", lambda _o, _v: self.__show_preferences_dialog(), "<Control>comma")
+        add_action("new", lambda _o, _v: self.__create_window(), "<Control>n")
+        add_action(
+            "new-from-clipboard",
+            lambda _o, _v: self.__create_window_from_clipboard(),
+            "<Control><Shift>v",
+        )
         add_action(
             "set-style-variant",
             self.__set_style_variant,
             parameter_type=GLib.VariantType("s"),
         )
 
-    def __create_window(self) -> None:
+    def __create_window(self) -> Window:
         window = Window(self, self.__dbus_proxy)
         self.add_window(window)
         window.present()
         window.connect("close-request", self.__on_close_request)
         self.__windows.append(window)
+        return window
+
+    def __create_window_from_clipboard(self) -> None:
+        window = self.__create_window()
+        window.set_to_paste_during_init()
 
     def __apply_css(self) -> None:
         if self.__base_css_resource is None:
@@ -218,14 +211,14 @@ class Application(Adw.Application):
             display, self.__base_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def __show_about_dialog(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __show_about_dialog(self) -> None:
         builder = Gtk.Builder()
         builder.add_from_resource("/org/gnome/gitlab/cheywood/Buffer/about_dialog.ui")
         about_dialog = builder.get_object("AboutDialog")
         window = self.get_active_window()
         about_dialog.present(window)
 
-    def __show_preferences_dialog(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __show_preferences_dialog(self) -> None:
         window = self.get_active_window()
         PreferencesDialog().present(window)
 

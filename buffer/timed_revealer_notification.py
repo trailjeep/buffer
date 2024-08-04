@@ -1,4 +1,4 @@
-from gi.repository import GLib, GObject, Gtk
+from gi.repository import GLib, Gtk
 
 from typing import Callable, Optional
 
@@ -16,8 +16,8 @@ class TimedRevealerNotification(Gtk.Revealer):
         self.__button_callback = None
         self.__finished_callback = None
         self.__event_source_id = None
-        self._button.connect("clicked", self.__clicked)
-        self.connect("notify::child-revealed", self.__revealed)
+        self._button.connect("clicked", lambda _o: self.__clicked())
+        self.connect("notify::child-revealed", lambda _o, _v: self.__revealed())
 
     def show(
         self,
@@ -64,13 +64,13 @@ class TimedRevealerNotification(Gtk.Revealer):
         self.__event_source_id = None
         self.set_reveal_child(False)
 
-    def __clicked(self, _button: Gtk.Button) -> None:
+    def __clicked(self) -> None:
         self.__clean()
         if self.__button_callback is not None:
             self.__button_callback()
         self.__hide()
 
-    def __revealed(self, _obj: GObject.Object, _value: GObject.ParamSpec) -> None:
+    def __revealed(self) -> None:
         if not self.get_child_revealed() and self.__finished_callback:
             self.__finished_callback()
             self.__finished_callback = None

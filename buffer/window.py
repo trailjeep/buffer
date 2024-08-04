@@ -2,7 +2,7 @@ from gettext import gettext as _
 import gi
 
 gi.require_version("GtkSource", "5")
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, GtkSource, Pango
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk, GtkSource, Pango
 
 import logging
 import time
@@ -56,8 +56,8 @@ class Window(Adw.ApplicationWindow):
 
         self.__setup_actions()
 
-        self.connect("close-request", self.__on_close_request)
-        self.connect("notify::visible-dialog", self.__on_visible_dialogs_changed)
+        self.connect("close-request", lambda _o: self.__on_close_request())
+        self.connect("notify::visible-dialog", lambda _o, _v: self.__on_visible_dialogs_changed())
 
         config_manager.settings.bind(
             config_manager.SHOW_CLOSE_BUTTON,
@@ -77,23 +77,28 @@ class Window(Adw.ApplicationWindow):
 
         if self.__dbus_proxy is not None:
             config_manager.settings.connect(
-                f"changed::{config_manager.USE_MONOSPACE_FONT}", self.__on_font_family_changed
+                f"changed::{config_manager.USE_MONOSPACE_FONT}",
+                lambda _o, _k: self.__load_font_family_from_setting(),
             )
 
         config_manager.settings.connect(
-            f"changed::{config_manager.LINE_LENGTH}", self.__on_line_length_changed
+            f"changed::{config_manager.LINE_LENGTH}", lambda _o, _k: self.__on_line_length_changed()
         )
 
-        self.connect("notify::is-active", self.__on_window_active_changed)
-        self._menu_button.connect("notify::active", self.__on_menu_active_changed)
+        self.connect("notify::is-active", lambda _o, _v: self.__on_window_active_changed())
+        self._menu_button.connect("notify::active", lambda _o, _v: self.__on_menu_active_changed())
 
         self._search_header_bar.setup(self._textview)
         self.__font_size_selector.setup()
         self.__refresh_line_length_from_setting()
-        self.connect("notify::fullscreened", self.__on_window_fullscreened)
+        self.connect("notify::fullscreened", lambda _o, _v: self.__on_window_fullscreened())
 
-        self._search_header_bar.connect("resumed", self.__on_search_resumed)
-        self._search_header_bar.connect("open-for-replace", self.__on_enter_replace)
+        self._search_header_bar.connect(
+            "resumed", lambda _o: self.__enter_search(resuming=True, for_replace=False)
+        )
+        self._search_header_bar.connect(
+            "open-for-replace", lambda _o: self.__enter_search(resuming=False, for_replace=True)
+        )
 
         self.update_style()
 
@@ -184,18 +189,18 @@ class Window(Adw.ApplicationWindow):
         out = clipboard.read_text_finish(task)
         self._textview.get_buffer().set_text(out)
 
-    def __on_close_request(self, _obj: GObject.Object) -> None:
+    def __on_close_request(self) -> None:
         """On window destroyed."""
         if not self.is_fullscreen():
             config_manager.set_window_size(self.get_width(), self.get_height())
         self.close()
 
-    def __on_line_length_changed(self, _settings: Gio.Settings, _key: str) -> None:
+    def __on_line_length_changed(self) -> None:
         length = config_manager.get_line_length()
         logging.debug(f"Line length now {length}px")
         self.__refresh_line_length_from_setting()
 
-    def __on_increase_line_length(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __on_increase_line_length(self) -> None:
         setting_max = config_manager.get_line_length_max()
         current_length = config_manager.get_line_length()
         if current_length == setting_max:
@@ -212,7 +217,7 @@ class Window(Adw.ApplicationWindow):
             # Translators: Description, notification
             self.__notify_setting_change(_("Line length limit disabled"))
 
-    def __on_decrease_line_length(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __on_decrease_line_length(self) -> None:
         setting_max = config_manager.get_line_length_max()
         current_length = config_manager.get_line_length()
         new_length = current_length - self.LINE_LENGTH_STEP
@@ -224,50 +229,26 @@ class Window(Adw.ApplicationWindow):
             config_manager.set_line_length(new_length)
             self.__notify_line_length_change(new_length)
 
-    def __on_line_length_limit_toggle(
-        self, _action: Gio.SimpleAction, _param: GLib.Variant
-    ) -> None:
+    def __on_line_length_limit_toggle(self) -> None:
         setting_maximum = config_manager.get_line_length_max()
         if config_manager.get_line_length() == setting_maximum:
             config_manager.set_line_length(EditorTextView.DEFAULT_LINE_LENGTH)
         else:
             config_manager.set_line_length(setting_maximum)
 
-    def __on_font_family_changed(self, _settings: Gio.Settings, _key: str) -> None:
-        self.__load_font_family_from_setting()
-
-    def __on_increase_font_size(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
+    def __on_increase_font_size(self) -> None:
         if self.__font_size_selector.increase():
             self.__notify_font_size()
 
-    def __on_decrease_font_size(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
+    def __on_decrease_font_size(self) -> None:
         if self.__font_size_selector.decrease():
             self.__notify_font_size()
 
-    def __on_reset_font_size(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
+    def __on_reset_font_size(self) -> None:
         self.__font_size_selector.reset()
         self.__notify_font_size()
 
-    def __on_close_shortcut(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
-        self.close()
-
-    def __on_window_active_changed(self, _obj: GObject.Object, _param: GObject.ParamSpec) -> None:
+    def __on_window_active_changed(self) -> None:
         if not self.is_active():
             return
 
@@ -278,21 +259,15 @@ class Window(Adw.ApplicationWindow):
                 clipboard.read_text_async(None, self.__on_paste_cb)
             self.__initialising = False
 
-    def __on_menu_active_changed(self, _obj: GObject.Object, _param: GObject.ParamSpec) -> None:
+    def __on_menu_active_changed(self) -> None:
         if not self._menu_button.get_active():
             self._textview.grab_focus()
 
-    def __on_window_fullscreened(self, window: Gtk.Window, _param: GObject.ParamSpec) -> None:
-        if window.is_fullscreen():
+    def __on_window_fullscreened(self) -> None:
+        if self.is_fullscreen():
             self.__hide_menu()
         else:
             self.__reveal_menu()
-
-    def __on_toggle_fullscreen(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
-        if self.is_fullscreen():
-            self.unfullscreen()
-        else:
-            self.fullscreen()
 
     def __on_desktop_setting_changed(
         self, _sender_name: str, _signal_name: str, _parameters: str, data: GLib.Variant
@@ -306,21 +281,15 @@ class Window(Adw.ApplicationWindow):
                 self.__font_families[setting_name] = font_description.get_family()
                 self.__push_font_updates()
 
-    def __on_enter_search(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __on_enter_search(self) -> None:
         if not self._search_header_bar.active:
             self.__enter_search(resuming=False, for_replace=False)
 
-    def __on_search_resumed(self, _object: GObject.Object) -> None:
-        self.__enter_search(resuming=True, for_replace=False)
-
-    def __on_enter_replace(self, _object: GObject.Object) -> None:
-        self.__enter_search(resuming=False, for_replace=True)
-
-    def __on_cancel(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __on_cancel(self) -> None:
         if self._toolbar_view.get_reveal_top_bars():
             self.__exit_search()
 
-    def __on_visible_dialogs_changed(self, window, _value: GObject.ParamSpec) -> None:
+    def __on_visible_dialogs_changed(self) -> None:
         visible = self.get_visible_dialog() is not None
         self.__cancel_action.set_enabled(not visible)
 
@@ -330,60 +299,66 @@ class Window(Adw.ApplicationWindow):
         action_group = Gio.SimpleActionGroup.new()
 
         action = Gio.SimpleAction.new("fullscreen")
-        action.connect("activate", self.__on_toggle_fullscreen)
+        action.connect("activate", lambda _o, _v: self.__toggle_fullscreen())
         action_group.add_action(action)
         app.set_accels_for_action("win.fullscreen", ["F11"])
 
         action = Gio.SimpleAction.new("increase-line-length")
-        action.connect("activate", self.__on_increase_line_length)
+        action.connect("activate", lambda _o, _v: self.__on_increase_line_length())
         action_group.add_action(action)
         app.set_accels_for_action("win.increase-line-length", ["<Control>Up"])
 
         action = Gio.SimpleAction.new("decrease-line-length")
-        action.connect("activate", self.__on_decrease_line_length)
+        action.connect("activate", lambda _o, _v: self.__on_decrease_line_length())
         action_group.add_action(action)
         app.set_accels_for_action("win.decrease-line-length", ["<Control>Down"])
 
         action = Gio.SimpleAction.new("toggle-line-length-limit")
-        action.connect("activate", self.__on_line_length_limit_toggle)
+        action.connect("activate", lambda _o, _v: self.__on_line_length_limit_toggle())
         action_group.add_action(action)
         app.set_accels_for_action("win.toggle-line-length-limit", ["<Shift><Control>l"])
 
         action = Gio.SimpleAction.new("close")
-        action.connect("activate", self.__on_close_shortcut)
+        action.connect("activate", lambda _o, _v: self.close())
         action_group.add_action(action)
         app.set_accels_for_action("win.close", ["<Control>w"])
 
         action = Gio.SimpleAction.new("enter-search")
-        action.connect("activate", self.__on_enter_search)
+        action.connect("activate", lambda _o, _v: self.__on_enter_search())
         action_group.add_action(action)
         app.set_accels_for_action("win.enter-search", ["<Control>f"])
 
         action = Gio.SimpleAction.new("increase-font-size")
-        action.connect("activate", self.__on_increase_font_size)
+        action.connect("activate", lambda _o, _v: self.__on_increase_font_size())
         action_group.add_action(action)
         app.set_accels_for_action("win.increase-font-size", ["<Control>plus", "<Control>equal"])
 
         action = Gio.SimpleAction.new("decrease-font-size")
-        action.connect("activate", self.__on_decrease_font_size)
+        action.connect("activate", lambda _o, _v: self.__on_decrease_font_size())
         action_group.add_action(action)
         app.set_accels_for_action(
             "win.decrease-font-size", ["<Control>minus", "<Control>underscore"]
         )
 
         action = Gio.SimpleAction.new("reset-font-size")
-        action.connect("activate", self.__on_reset_font_size)
+        action.connect("activate", lambda _o, _v: self.__on_reset_font_size())
         action_group.add_action(action)
         app.set_accels_for_action("win.reset-font-size", ["<Control>0"])
 
         action = Gio.SimpleAction.new("go-back-or-cancel")
-        action.connect("activate", self.__on_cancel)
+        action.connect("activate", lambda _o, _v: self.__on_cancel())
         action_group.add_action(action)
         app.set_accels_for_action("win.go-back-or-cancel", ["Escape"])
         self.__cancel_action = action
 
         self.insert_action_group("win", action_group)
         self.__action_group = action_group
+
+    def __toggle_fullscreen(self) -> None:
+        if self.is_fullscreen():
+            self.unfullscreen()
+        else:
+            self.fullscreen()
 
     def __process_desktop_settings(self, variant: GLib.Variant) -> None:
         if variant.get_type_string() != "(a{sa{sv}})":

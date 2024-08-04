@@ -1,7 +1,7 @@
 import gi
 
 gi.require_version("GtkSource", "5")
-from gi.repository import Gdk, Gio, GLib, GObject, Gtk, GtkSource
+from gi.repository import Gdk, GLib, GObject, Gtk, GtkSource
 
 import locale
 import logging
@@ -45,13 +45,17 @@ class EditorTextView(GtkSource.View):
             self.__init_spellchecker()
 
         config_manager.settings.connect(
-            f"changed::{config_manager.SPELLING_ENABLED}", self.__on_spelling_toggled
+            f"changed::{config_manager.SPELLING_ENABLED}",
+            lambda _o, _v: self.__on_spelling_toggled(),
         )
         config_manager.settings.connect(
-            f"changed::{config_manager.FONT_SIZE}", self.__on_font_size_changed
+            f"changed::{config_manager.FONT_SIZE}", lambda _o, _k: self.__update_font()
         )
         config_manager.settings.connect(
-            f"changed::{config_manager.SHOW_LINE_NUMBERS}", self.__on_show_line_numbers_toggled
+            f"changed::{config_manager.SHOW_LINE_NUMBERS}",
+            lambda _o, _v: self.set_property(
+                "show-line-numbers", config_manager.get_show_line_numbers()
+            ),
         )
         self.set_property("show-line-numbers", config_manager.get_show_line_numbers())
 
@@ -145,9 +149,6 @@ class EditorTextView(GtkSource.View):
         if self.__spelling_adapter is not None:
             self.__spelling_adapter.set_enabled(value)
 
-    def __on_font_size_changed(self, _settings: Gio.Settings, _key: str) -> None:
-        self.__update_font()
-
     def __on_key_pressed(
         self,
         controller: Gtk.EventControllerKey,
@@ -164,17 +165,12 @@ class EditorTextView(GtkSource.View):
 
         return Gdk.EVENT_PROPAGATE
 
-    def __on_spelling_toggled(self, _obj: GObject.Object, _spec: GObject.ParamSpec) -> None:
+    def __on_spelling_toggled(self) -> None:
         if config_manager.get_spelling_enabled():
             self.__init_spellchecker()
             self.spellchecker_enabled = True
         else:
             self.spellchecker_enabled = False
-
-    def __on_show_line_numbers_toggled(
-        self, _obj: GObject.Object, _spec: GObject.ParamSpec
-    ) -> None:
-        self.set_property("show-line-numbers", config_manager.get_show_line_numbers())
 
     def __update_font(self) -> None:
         if not self.__css_provider:
@@ -220,7 +216,9 @@ class EditorTextView(GtkSource.View):
         self.spellchecker_enabled = False
         if pref_language is not None:
             self.__verify_preferred_language_in_use(pref_language)
-        self.__spellchecker.connect("notify::language", self.__spelling_language_changed)
+        self.__spellchecker.connect(
+            "notify::language", lambda _o, _v: self.__spelling_language_changed()
+        )
 
     def __verify_preferred_language_in_use(self, pref_language: str) -> None:
         language_in_use = self.__spellchecker.get_language()
@@ -237,7 +235,7 @@ class EditorTextView(GtkSource.View):
 
             config_manager.set_spelling_language("")
 
-    def __spelling_language_changed(self, _obj: GObject.Object, _spec: GObject.ParamSpec) -> None:
+    def __spelling_language_changed(self) -> None:
         language = self.__spellchecker.get_language()
         logging.info(f'New spelling language "{language}"')
         config_manager.set_spelling_language(language)

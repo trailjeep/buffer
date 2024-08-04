@@ -1,4 +1,4 @@
-from gi.repository import Gio, Gtk
+from gi.repository import Gtk
 
 import buffer.config_manager as config_manager
 
@@ -14,10 +14,9 @@ class ThemeSelector(Gtk.Box):
     def __init__(self):
         super().__init__()
         self.__populate()
-        config_manager.settings.connect(f"changed::{config_manager.STYLE}", self.__on_changed)
-
-    def __on_changed(self, _settings: Gio.Settings, _key: str) -> None:
-        self.__populate()
+        config_manager.settings.connect(
+            f"changed::{config_manager.STYLE}", lambda _o, _k: self.__populate()
+        )
 
     def __populate(self) -> None:
         style = config_manager.get_style()

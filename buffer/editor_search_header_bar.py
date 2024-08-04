@@ -1,7 +1,7 @@
 import gi
 
 gi.require_version("GtkSource", "5")
-from gi.repository import Gio, GLib, GObject, Gtk, GtkSource
+from gi.repository import Gio, GObject, Gtk, GtkSource
 
 from typing import Optional
 
@@ -38,7 +38,9 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__current_match_tag = None
         self.__avoid_jumping_during_replace = False
         self.__active = False
-        self._search_entry.text.connect("notify::text", self.__on_search_text_changed)
+        self._search_entry.text.connect(
+            "notify::text", lambda _o, _v: self.__on_search_text_changed()
+        )
 
         self._revealer.bind_property(
             "child-revealed", self._replace_toggle, "active", GObject.BindingFlags.SYNC_CREATE
@@ -74,9 +76,11 @@ class EditorSearchHeaderBar(Gtk.Box):
             self._search_entry.text.select_region(0, -1)
 
         self.__context_signal_handler_id = self.__context.connect(
-            "notify::occurrences-count", self.__occurrences_count_changed
+            "notify::occurrences-count", lambda _o, _v: self.__occurrences_count_changed()
         )
-        self.__cursor_signal_handler_id = buffer.connect("cursor-moved", self.__on_cursor_moved)
+        self.__cursor_signal_handler_id = buffer.connect(
+            "cursor-moved", lambda _o: self.__on_cursor_moved()
+        )
         self.__replace_action.set_enabled(False)
         self.__active = True
 
@@ -115,43 +119,29 @@ class EditorSearchHeaderBar(Gtk.Box):
         app = Gio.Application.get_default()
 
         action = Gio.SimpleAction.new("forward")
-        action.connect("activate", self.__on_forward)
+        action.connect("activate", lambda _o, _v: self.__move_forward())
         action_group.add_action(action)
         app.set_accels_for_action("editor-search.forward", ["<Control>g"])
         action.set_enabled(False)
 
         action = Gio.SimpleAction.new("backward")
-        action.connect("activate", self.__on_backward)
+        action.connect("activate", lambda _o, _v: self.__move_backward())
         action_group.add_action(action)
         app.set_accels_for_action("editor-search.backward", ["<Shift><Control>g"])
         action.set_enabled(False)
 
         action = Gio.SimpleAction.new("toggle-replace")
-        action.connect("activate", self.__toggle_replace_visible)
+        action.connect("activate", lambda _o, _v: self.__toggle_replace_visible())
         action_group.add_action(action)
         app.set_accels_for_action("editor-search.toggle-replace", ["<Control>h"])
 
         action = Gio.SimpleAction.new("replace")
-        action.connect("activate", self.__on_replace_selection)
+        action.connect("activate", lambda _o, _v: self.__replace_selection())
         action_group.add_action(action)
         self.__replace_action = action
 
         self.__action_group = action_group
         app.get_active_window().insert_action_group("editor-search", action_group)
-
-    def __on_forward(
-        self,
-        _action: Gio.SimpleAction,
-        _param: GLib.Variant,
-    ) -> None:
-        self.__move_forward()
-
-    def __on_backward(
-        self,
-        _action: Gio.SimpleAction,
-        _param: GLib.Variant,
-    ) -> None:
-        self.__move_backward()
 
     def __on_context_forward_cb(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
         success, match_start, match_end, __ = self.__context.forward_finish(result)
@@ -178,11 +168,11 @@ class EditorSearchHeaderBar(Gtk.Box):
             self.__update_for_current_match(match_start, match_end)
         self.__replace_action.set_enabled(success)
 
-    def __on_cursor_moved(self, _obj: GObject.Object) -> None:
+    def __on_cursor_moved(self) -> None:
         self.__update_for_current_match(None, None)
         self.__replace_action.set_enabled(False)
 
-    def __on_search_text_changed(self, _obj: GObject.Object, _value: GObject.ParamSpec) -> None:
+    def __on_search_text_changed(self) -> None:
         self.__replace_action.set_enabled(False)
         self._search_entry.set_occurrence_count(0)
         self._search_entry.set_occurrence_position(0)
@@ -191,14 +181,7 @@ class EditorSearchHeaderBar(Gtk.Box):
         begin, end = buffer.get_bounds()
         buffer.remove_tag(self.__current_match_tag, begin, end)
 
-    def __on_replace_selection(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
-        self.__replace_selection()
-
-    def __occurrences_count_changed(
-        self,
-        _obj: GObject.Object,
-        _value: GObject.ParamSpec,
-    ) -> None:
+    def __occurrences_count_changed(self) -> None:
         count = self.__context.get_occurrences_count()
         self._search_entry.set_occurrence_count(count)
         self._search_entry.set_occurrence_position(0)
@@ -251,7 +234,7 @@ class EditorSearchHeaderBar(Gtk.Box):
             begin = buffer.get_iter_at_mark(mark)
         self.__context.backward_async(begin, None, self.__on_context_backward_cb)
 
-    def __toggle_replace_visible(self, _action: Gio.SimpleAction, _param: GLib.Variant) -> None:
+    def __toggle_replace_visible(self) -> None:
         if not self.__active:
             self.emit("open-for-replace")
             return
