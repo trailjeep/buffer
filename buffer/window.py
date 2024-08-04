@@ -176,7 +176,8 @@ class Window(Adw.ApplicationWindow):
             if self._revealer.get_reveal_child() and not self._menu_button.get_active():
                 self.__hide_menu()
         elif gesture.get_current_button() == 3:
-            self._textview.move_cursor(x, y)
+            if not self._textview.get_buffer().get_has_selection():
+                self._textview.move_cursor(x, y)
         return Gdk.EVENT_PROPAGATE
 
     def __on_paste_cb(self, clipboard: Gdk.Clipboard, task: Gio.Task) -> None:
