@@ -64,6 +64,16 @@
   </screenshots>
 
   <releases>
+    <release version="0.9.3" date="2024-08-04T00:00:00Z">
+      <description translate="no">
+        <p>The window now has a minimum width, creating a buffer with clipboard contents is fixed and right clicking no longer impacts the selection.</p>
+        <p>Contributors</p>
+        <ul>
+          <li>Rafael Fontenelle</li>
+          <li>Vlad Krupinski</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.2" date="2024-05-23T00:00:00Z">
       <description translate="no">
         <ul>
