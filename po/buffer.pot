@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-04 20:14+1000\n"
+"POT-Creation-Date: 2024-08-05 19:36+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,23 +196,23 @@ msgid "{0} of {1}"
 msgstr ""
 
 #. Translators: Description, notification
-#: buffer/window.py:208
+#: buffer/window.py:210
 msgid "Line length limit already disabled"
 msgstr ""
 
 #. Translators: Description, notification
-#: buffer/window.py:218
+#: buffer/window.py:220
 msgid "Line length limit disabled"
 msgstr ""
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:436
+#: buffer/window.py:438
 #, python-brace-format
 msgid "Line length now {0}px"
 msgstr ""
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:442
+#: buffer/window.py:444
 #, python-brace-format
 msgid "Font size now {0}pt"
 msgstr ""
