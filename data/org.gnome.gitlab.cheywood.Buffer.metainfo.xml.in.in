@@ -64,6 +64,11 @@
   </screenshots>
 
   <releases>
+    <release version="0.9.4" date="2024-08-05T00:00:00Z">
+      <description translate="no">
+        <p>On small windows the visual separation between the buttons and text has been improved.</p>
+      </description>
+    </release>
     <release version="0.9.3" date="2024-08-04T00:00:00Z">
       <description translate="no">
         <p>The window now has a minimum width, creating a buffer with clipboard contents is fixed and right clicking no longer impacts the selection.</p>
