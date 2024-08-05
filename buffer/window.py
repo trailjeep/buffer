@@ -181,6 +181,8 @@ class Window(Adw.ApplicationWindow):
             if self._revealer.get_reveal_child() and not self._menu_button.get_active():
                 self.__hide_menu()
         elif gesture.get_current_button() == 3:
+            # For libspelling we need to move the cursor manually before showing the popup, but we
+            # avoid doing that when there's a selection.
             if not self._textview.get_buffer().get_has_selection():
                 self._textview.move_cursor(x, y)
         return Gdk.EVENT_PROPAGATE
