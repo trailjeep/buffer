@@ -6,6 +6,9 @@
   line-height: 1.4;
 }
 
+overlay revealer windowhandle > box {
+  background-color: alpha(@view_bg_color, 0.9);
+}
 
 /* Tweaks for piggybacking on libadwaita's window controls styling for close button; brittle
  * rubbish that will need maintaining.
