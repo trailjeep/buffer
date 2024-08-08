@@ -64,6 +64,11 @@
   </screenshots>
 
   <releases>
+    <release version="0.9.5" date="2024-08-08T00:00:00Z">
+      <description translate="no">
+        <p>Fixed issue in editing the buffer while searching.</p>
+      </description>
+    </release>
     <release version="0.9.4" date="2024-08-05T00:00:00Z">
       <description translate="no">
         <p>On small windows the visual separation between the buttons and text has been improved.</p>
