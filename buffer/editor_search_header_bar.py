@@ -38,6 +38,8 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__current_match_tag = None
         self.__avoid_jumping_during_replace = False
         self.__active = False
+        self.__restarting_with_nonempty_term = False
+
         self._search_entry.text.connect(
             "notify::text", lambda _o, _v: self.__on_search_text_changed()
         )
@@ -143,7 +145,7 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__action_group = action_group
         app.get_active_window().insert_action_group("editor-search", action_group)
 
-    def __on_context_forward_cb(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
+    def __on_context_forward(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
         success, match_start, match_end, __ = self.__context.forward_finish(result)
         if success:
             buffer = self.__sourceview.get_buffer()
@@ -158,7 +160,7 @@ class EditorSearchHeaderBar(Gtk.Box):
             self.__restarting_with_nonempty_term = False
         self.__replace_action.set_enabled(success)
 
-    def __on_context_backward_cb(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
+    def __on_context_backward(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
         success, match_start, match_end, __ = self.__context.backward_finish(result)
         if success:
             buffer = self.__sourceview.get_buffer()
@@ -186,10 +188,12 @@ class EditorSearchHeaderBar(Gtk.Box):
         self._search_entry.set_occurrence_count(count)
         self._search_entry.set_occurrence_position(0)
         search_can_move = count > 0
-        if search_can_move and not self.__avoid_jumping_during_replace:
-            self.__jump_to_first()
-        elif self.__restarting_with_nonempty_term:
-            self.__restarting_with_nonempty_term = False
+
+        if not self.__sourceview.has_focus():
+            if search_can_move and not self.__avoid_jumping_during_replace:
+                self.__jump_to_first()
+            elif self.__restarting_with_nonempty_term:
+                self.__restarting_with_nonempty_term = False
 
         self.__action_group.lookup_action("backward").set_enabled(search_can_move)
         self.__action_group.lookup_action("forward").set_enabled(search_can_move)
@@ -216,7 +220,7 @@ class EditorSearchHeaderBar(Gtk.Box):
             else:
                 mark = buffer.get_insert()
                 from_iter = buffer.get_iter_at_mark(mark)
-        self.__context.forward_async(from_iter, None, self.__on_context_forward_cb)
+        self.__context.forward_async(from_iter, None, self.__on_context_forward)
 
     def __move_backward(self) -> None:
         """Move to previous search match."""
@@ -232,7 +236,7 @@ class EditorSearchHeaderBar(Gtk.Box):
         else:
             mark = buffer.get_insert()
             begin = buffer.get_iter_at_mark(mark)
-        self.__context.backward_async(begin, None, self.__on_context_backward_cb)
+        self.__context.backward_async(begin, None, self.__on_context_backward)
 
     def __toggle_replace_visible(self) -> None:
         if not self.__active:
