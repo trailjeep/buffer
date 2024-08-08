@@ -103,6 +103,12 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__action_group.lookup_action("backward").set_enabled(False)
         self.__action_group.lookup_action("forward").set_enabled(False)
 
+    def refocus_search_and_select(self) -> None:
+        """Grab focus to search entry and select any text."""
+        self._search_entry.text.grab_focus()
+        if self._search_entry.get_text() != "":
+            self._search_entry.text.select_region(0, -1)
+
     @GObject.Property(type=bool, default=False)
     def active(self) -> bool:
         return self.__active

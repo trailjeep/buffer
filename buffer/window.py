@@ -284,7 +284,9 @@ class Window(Adw.ApplicationWindow):
                 self.__push_font_updates()
 
     def __on_enter_search(self) -> None:
-        if not self._search_header_bar.active:
+        if self._search_header_bar.active:
+            self._search_header_bar.refocus_search_and_select()
+        else:
             self.__enter_search(resuming=False, for_replace=False)
 
     def __on_cancel(self) -> None:
