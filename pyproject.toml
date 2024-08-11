@@ -1,6 +1,10 @@
 [tool.black]
 line-length = 100
 
+[tool.codespell]
+skip = '*.po,.git,_build,./build/*'
+check-filenames = true
+
 [tool.ruff]
 line-length = 100
 target-version = "py37"

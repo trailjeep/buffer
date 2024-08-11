@@ -12,6 +12,12 @@ black:
         - pip install black
         - black --check --diff .
 
+codespell:
+    image: python:3.8
+    script:
+        - pip install codespell tomli
+        - codespell
+
 flatpak:
     variables:
         MANIFEST_PATH: "build-aux/flatpak/org.gnome.gitlab.cheywood.Buffer.Devel.json"
