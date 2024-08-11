@@ -4,7 +4,7 @@ flake8:
     image: python:3.8
     script:
         - pip install flake8
-        - cd buffer && flake8
+        - flake8
 
 black:
     image: python:3.8

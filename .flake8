@@ -1,0 +1,11 @@
+[flake8]
+per-file-ignores =
+    buffer/application.py:E402
+    buffer/editor_text_view.py:E402,F821
+    buffer/editor_search_header_bar.py:E402
+    buffer/preferences_dialog.py:E402
+    buffer/window.py:E402
+max-line-length = 100
+extend-ignore =
+    # See https://github.com/PyCQA/pycodestyle/issues/373
+    E203,
