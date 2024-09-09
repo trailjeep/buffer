@@ -21,7 +21,7 @@ class EditorSearchHeaderBar(Gtk.Box):
     _replace_entry = Gtk.Template.Child()
     _replace_toggle = Gtk.Template.Child()
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self.__settings = GtkSource.SearchSettings.new()
@@ -31,7 +31,7 @@ class EditorSearchHeaderBar(Gtk.Box):
             self.__settings,
             "search-text",
         )
-        self.__context = None
+        self.__context: Optional[GtkSource.SearchContext] = None
         self.__offset_when_entered = 0
         self.__context_signal_handler_id = None
         self.__cursor_signal_handler_id = None
@@ -48,7 +48,7 @@ class EditorSearchHeaderBar(Gtk.Box):
             "child-revealed", self._replace_toggle, "active", GObject.BindingFlags.SYNC_CREATE
         )
 
-    def setup(self, sourceview: GtkSource.View):
+    def setup(self, sourceview: GtkSource.View) -> None:
         """Perform initial setup."""
         self.__setup_actions()
         self.__sourceview = sourceview
@@ -90,11 +90,13 @@ class EditorSearchHeaderBar(Gtk.Box):
         """Exit search."""
         buffer = self.__sourceview.get_buffer()
         buffer.disconnect(self.__cursor_signal_handler_id)
-        self.__context.disconnect(self.__context_signal_handler_id)
-        self.__context = None
+        if self.__context:
+            self.__context.disconnect(self.__context_signal_handler_id)
+            self.__context = None
         begin, end = buffer.get_bounds()
-        buffer.remove_tag(self.__current_match_tag, begin, end)
-        self.__current_match_tag = None
+        if self.__current_match_tag:
+            buffer.remove_tag(self.__current_match_tag, begin, end)
+            self.__current_match_tag = None
         self._revealer.set_reveal_child(False)
         self.__active = False
 
@@ -151,8 +153,10 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__action_group = action_group
         app.get_active_window().insert_action_group("editor-search", action_group)
 
-    def __on_context_forward(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
-        success, match_start, match_end, __ = self.__context.forward_finish(result)
+    def __on_context_forward(self, context: GtkSource.SearchContext, result: Gio.AsyncResult) -> None:
+        if not self.__current_match_tag:
+            return
+        success, match_start, match_end, __ = context.forward_finish(result)
         if success:
             buffer = self.__sourceview.get_buffer()
             if self.__restarting_with_nonempty_term:
@@ -166,8 +170,10 @@ class EditorSearchHeaderBar(Gtk.Box):
             self.__restarting_with_nonempty_term = False
         self.__replace_action.set_enabled(success)
 
-    def __on_context_backward(self, _obj: GObject.Object, result: Gio.AsyncResult) -> None:
-        success, match_start, match_end, __ = self.__context.backward_finish(result)
+    def __on_context_backward(self, context: GtkSource.SearchContext, result: Gio.AsyncResult) -> None:
+        if not self.__current_match_tag:
+            return
+        success, match_start, match_end, __ = context.backward_finish(result)
         if success:
             buffer = self.__sourceview.get_buffer()
             buffer.select_range(match_start, match_end)
@@ -190,6 +196,8 @@ class EditorSearchHeaderBar(Gtk.Box):
         buffer.remove_tag(self.__current_match_tag, begin, end)
 
     def __occurrences_count_changed(self) -> None:
+        if not self.__context:
+            return
         count = self.__context.get_occurrences_count()
         self._search_entry.set_occurrence_count(count)
         self._search_entry.set_occurrence_position(0)
@@ -226,7 +234,8 @@ class EditorSearchHeaderBar(Gtk.Box):
             else:
                 mark = buffer.get_insert()
                 from_iter = buffer.get_iter_at_mark(mark)
-        self.__context.forward_async(from_iter, None, self.__on_context_forward)
+        if self.__context:
+            self.__context.forward_async(from_iter, None, self.__on_context_forward)
 
     def __move_backward(self) -> None:
         """Move to previous search match."""
@@ -242,7 +251,8 @@ class EditorSearchHeaderBar(Gtk.Box):
         else:
             mark = buffer.get_insert()
             begin = buffer.get_iter_at_mark(mark)
-        self.__context.backward_async(begin, None, self.__on_context_backward)
+        if self.__context:
+            self.__context.backward_async(begin, None, self.__on_context_backward)
 
     def __toggle_replace_visible(self) -> None:
         if not self.__active:
@@ -262,6 +272,10 @@ class EditorSearchHeaderBar(Gtk.Box):
     def __update_for_current_match(
         self, match_start: Optional[Gtk.TextIter], match_end: Optional[Gtk.TextIter]
     ) -> None:
+        if not self.__context:
+            return
+        if not self.__current_match_tag:
+            return
         buffer = self.__sourceview.get_buffer()
 
         new_position = 0
@@ -288,6 +302,8 @@ class EditorSearchHeaderBar(Gtk.Box):
         if self.__current_match_tag is not None:
             table.remove(self.__current_match_tag)
         self.__current_match_tag = buffer.create_tag()
+        if not self.__current_match_tag:
+            return
 
         if scheme is not None:
             style = scheme.get_style("current-search-match")

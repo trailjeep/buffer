@@ -2,11 +2,11 @@ from gettext import gettext as _
 import gi
 
 gi.require_version("GtkSource", "5")
-from gi.repository import Adw, Gdk, Gio, GLib, Gtk, GtkSource, Pango
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, GtkSource, Pango
 
 import logging
 import time
-from typing import Optional
+from typing import Dict, Optional
 
 import buffer.config_manager as config_manager
 from buffer import const
@@ -39,11 +39,10 @@ class Window(Adw.ApplicationWindow):
         self.__dbus_proxy = dbus_proxy
 
         self.__initialising = True
-        self.__font_families = {}
+        self.__font_families: Dict[str, str] = {}
         self.__timeout_signal_id = None
-        self.__motion_during_menu_hide_timeout = None
+        self.__motion_during_menu_hide_timeout: Optional[float] = None
         self.__paste_during_init = False
-        self.__cancel_action = None
 
         self.set_icon_name(const.APP_ID)
 
@@ -136,7 +135,7 @@ class Window(Adw.ApplicationWindow):
         self.close()
 
     @Gtk.Template.Callback()
-    def _on_motion(self, _obj, x, y) -> None:
+    def _on_motion(self, _obj: GObject.Object, x: float, y: float) -> None:
         if self._toolbar_view.get_reveal_top_bars():
             return
 
@@ -176,7 +175,7 @@ class Window(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def _on_gesture_click(
         self, gesture: Gtk.GestureClick, _n_press: int, x: float, y: float
-    ) -> None:
+    ) -> bool:
         if gesture.get_current_button() == 1:
             if self._revealer.get_reveal_child() and not self._menu_button.get_active():
                 self.__hide_menu()
@@ -382,7 +381,7 @@ class Window(Adw.ApplicationWindow):
             family = self.__font_families[font_setting]
             self._textview.update_font_family(family)
 
-    def __fetch_editor_font_setting_name(self):
+    def __fetch_editor_font_setting_name(self) -> str:
         return (
             "monospace-font-name"
             if config_manager.get_use_monospace_font()

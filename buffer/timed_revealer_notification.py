@@ -11,10 +11,10 @@ class TimedRevealerNotification(Gtk.Revealer):
     _button = Gtk.Template.Child()
     _icon = Gtk.Template.Child()
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.__button_callback = None
-        self.__finished_callback = None
+        self.__button_callback: Optional[Callable[[], None]] = None
+        self.__finished_callback: Optional[Callable[[], None]] = None
         self.__event_source_id = None
         self._button.connect("clicked", lambda _o: self.__clicked())
         self.connect("notify::child-revealed", lambda _o, _v: self.__revealed())

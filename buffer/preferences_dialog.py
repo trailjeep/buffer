@@ -11,7 +11,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
     _show_files_button = Gtk.Template.Child()
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.__app = Gio.Application.get_default()
 
@@ -24,7 +24,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
     def __build_actions(self) -> None:
         action_group = Gio.SimpleActionGroup.new()
 
-        def build_simple_binary_action(key: str):
+        def build_simple_binary_action(key: str) -> None:
             action = config_manager.settings.create_action(key)
             action_group.add_action(action)
 
@@ -54,16 +54,16 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
         self.insert_action_group("settings", action_group)
 
-    def __on_line_length_state_change(self, action: Gio.SimpleAction, state: bool) -> None:
+    def __on_line_length_state_change(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         action.set_state(state)
         setting_maximum = config_manager.get_line_length_max()
-        new_value = EditorTextView.DEFAULT_LINE_LENGTH if state else setting_maximum
+        new_value = EditorTextView.DEFAULT_LINE_LENGTH if state.get_boolean() else setting_maximum
         config_manager.set_line_length(new_value)
 
     def __on_emergency_recovery_files_state_change(
-        self, action: Gio.SimpleAction, state: bool
+        self, action: Gio.SimpleAction, state: GLib.Variant
     ) -> None:
         action.set_state(state)
-        new_value = EmergencySavesManager.DEFAULT_EMERGENCY_FILES if state else 0
+        new_value = EmergencySavesManager.DEFAULT_EMERGENCY_FILES if state.get_boolean() else 0
         config_manager.set_emergency_recover_files(new_value)
-        self._show_files_button.set_sensitive(state)
+        self._show_files_button.set_sensitive(state.get_boolean())

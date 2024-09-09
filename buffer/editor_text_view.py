@@ -6,6 +6,7 @@ from gi.repository import Gdk, GLib, GObject, Gtk, GtkSource
 import locale
 import logging
 import re
+import sys
 from typing import Callable, Optional
 
 import buffer.config_manager as config_manager
@@ -32,10 +33,9 @@ class EditorTextView(GtkSource.View):
     MINIMUM_MARGIN = 10
     DEFAULT_LINE_LENGTH = 800
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-        self.__css_provider = None
         self.__line_length = -1
         self.__font_family = "monospace"
 
@@ -62,6 +62,11 @@ class EditorTextView(GtkSource.View):
         controller = Gtk.EventControllerKey()
         controller.connect("key-pressed", self.__on_key_pressed)
         self.add_controller(controller)
+
+        self.__css_provider = Gtk.CssProvider()
+        self.get_style_context().add_provider(
+            self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER
+        )
 
     def do_size_allocate(self, width: int, height: int, baseline: int) -> None:
         """Allocates widget with a transformation that translates the origin to the position in
@@ -135,7 +140,7 @@ class EditorTextView(GtkSource.View):
         return self.__line_length
 
     @line_length.setter
-    def line_length(self, value: int) -> None:
+    def set_line_length(self, value: int) -> None:
         self.__line_length = value
 
     @GObject.Property(type=bool, default=False)
@@ -145,7 +150,7 @@ class EditorTextView(GtkSource.View):
         return False
 
     @spellchecker_enabled.setter
-    def spellchecker_enabled(self, value: bool) -> None:
+    def set_spellchecker_enabled(self, value: bool) -> None:
         if self.__spelling_adapter is not None:
             self.__spelling_adapter.set_enabled(value)
 
@@ -173,12 +178,6 @@ class EditorTextView(GtkSource.View):
             self.spellchecker_enabled = False
 
     def __update_font(self) -> None:
-        if not self.__css_provider:
-            self.__css_provider = Gtk.CssProvider()
-            self.get_style_context().add_provider(
-                self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER
-            )
-
         size = config_manager.get_font_size()
         style = f"""
         .editor-textview {{
@@ -188,22 +187,27 @@ class EditorTextView(GtkSource.View):
         self.__css_provider.load_from_data(style, -1)
 
     def __init_spellchecker(self) -> None:
-        if self.__spellchecker is not None:
+        if self.__spellchecker:
             return
 
         gi.require_version("Spelling", "1")
         from gi.repository import Spelling
 
         pref_language = config_manager.get_spelling_language()
-        if pref_language is not None:
-            language = pref_language
+        if pref_language:
+            language_code: Optional[str] = pref_language
             logging.debug(f'Attempting to use spelling language from preference "{pref_language}"')
         else:
-            language = locale.getdefaultlocale()[0]
-            logging.debug(f'Attempting to use locale default spelling language "{language}"')
+            language_code, _ = locale.getdefaultlocale()
+            if not language_code:
+                logging.warning(
+                    "Failed to determine default locale, abandoning spelling initialisation"
+                )
+                return
+            logging.debug(f'Attempting to use locale default spelling language "{language_code}"')
 
         self.__spellchecker = Spelling.Checker.get_default()
-        self.__spellchecker.set_language(language)
+        self.__spellchecker.set_language(language_code)
 
         buffer = self.get_buffer()
 
@@ -228,6 +232,11 @@ class EditorTextView(GtkSource.View):
                 " preference"
             )
 
+            # Primarily with linting, for lazy loaded init above
+            if "Spelling" not in sys.modules:
+                gi.require_version("Spelling", "1")
+                from gi.repository import Spelling
+
             logging.info("Available languages:")
             provider = Spelling.Provider.get_default()
             for language_info in provider.list_languages():
@@ -241,7 +250,7 @@ class EditorTextView(GtkSource.View):
         config_manager.set_spelling_language(language)
         self.__spelling_adapter.invalidate_all()
 
-    def __check_line_for_bullet_list_item(self, searchterm: str) -> re.Match:
+    def __check_line_for_bullet_list_item(self, searchterm: str) -> Optional[re.Match]:
         term = r"^\s*("
         escaped_tokens = []
         for token in self.BULLET_LIST_TOKENS.keys():
@@ -250,7 +259,7 @@ class EditorTextView(GtkSource.View):
         term += ")"
         return re.search(term, searchterm)
 
-    def __check_line_for_ordered_list_item(self, searchterm: str) -> re.Match:
+    def __check_line_for_ordered_list_item(self, searchterm: str) -> Optional[re.Match]:
         term = r"^(\s*)([a-zA-Z]{1}|[0-9]+)([\.\)]){1}[ ]+"
         return re.search(term, searchterm)
 

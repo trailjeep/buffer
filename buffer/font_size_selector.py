@@ -33,15 +33,13 @@ class FontSizeSelector(Gtk.Box):
         38,
     ]
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.__increase_action = None
-        self.__decrease_action = None
         config_manager.settings.connect(
             f"changed::{config_manager.FONT_SIZE}", lambda _o, _k: self.__refresh_from_setting()
         )
 
-    def setup(self):
+    def setup(self) -> None:
         self.__setup_actions()
         self.__refresh_from_setting()
 
@@ -63,7 +61,7 @@ class FontSizeSelector(Gtk.Box):
         config_manager.set_font_size(self.VALID_SIZES[ind - 1])
         return True
 
-    def reset(self) -> bool:
+    def reset(self) -> None:
         previous_size = config_manager.get_font_size()
         default_size = config_manager.get_default_font_size()
         if previous_size != default_size:

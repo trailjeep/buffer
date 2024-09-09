@@ -14,7 +14,7 @@ class EmergencySavesManager(GObject.Object):
     DEFAULT_EMERGENCY_FILES = 10
     DIRECTORY = os.path.join(GLib.get_user_data_dir(), "buffer", "recovery")
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def save(self, contents: str) -> None:
@@ -32,7 +32,7 @@ class EmergencySavesManager(GObject.Object):
             self.__save(filename, contents)
             self.__trim()
 
-    def __init_export_dir(self) -> None:
+    def __init_export_dir(self) -> bool:
         if not os.path.exists(self.DIRECTORY):
             try:
                 os.makedirs(self.DIRECTORY)

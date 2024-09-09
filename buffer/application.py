@@ -5,9 +5,9 @@ from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 import logging
 from signal import signal, SIGINT, SIGTERM
-from typing import Callable, Optional
+from typing import Any, Callable, Dict, List, Optional
 
-from buffer import const
+import buffer.const as const
 import buffer.config_manager as config_manager
 
 from buffer.migration_assistant import MigrationAssistant
@@ -21,7 +21,7 @@ class Application(Adw.Application):
     development_mode = const.IS_DEVEL
     application_id = const.APP_ID
 
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super().__init__(
             *args,
             application_id=self.application_id,
@@ -30,8 +30,8 @@ class Application(Adw.Application):
             register_session=True,
         )
 
-        self.__windows = []
-        self.__actions = {}
+        self.__windows: List[Window] = []
+        self.__actions: Dict[str, Gio.SimpleAction] = {}
         self.__emergency_saves_manager = EmergencySavesManager()
 
         self.__add_cli_options()
@@ -154,10 +154,10 @@ class Application(Adw.Application):
     def __setup_actions(self) -> None:
         def add_action(
             name: str,
-            method: Callable,
+            method: Callable[[GObject.Object, GLib.Variant], Any],
             shortcut: Optional[str] = None,
             parameter_type: Optional[GLib.VariantType] = None,
-        ):
+        ) -> None:
             if parameter_type is None:
                 action = Gio.SimpleAction.new(name)
             else:
@@ -203,6 +203,9 @@ class Application(Adw.Application):
 
         if self.__base_css_provider is None:
             self.__base_css_provider = Gtk.CssProvider()
+            if not self.__base_css_provider:
+                logging.warning("Failed to get CSS provider")
+                return
             self.__base_css_provider.load_from_resource(self.__base_css_resource)
         else:
             Gtk.StyleContext.remove_provider_for_display(display, self.__base_css_provider)
@@ -222,7 +225,7 @@ class Application(Adw.Application):
         window = self.get_active_window()
         PreferencesDialog().present(window)
 
-    def __set_style_variant(self, _action: Gio.SimpleAction, new_style: str) -> None:
+    def __set_style_variant(self, _action: Gio.SimpleAction, new_style: GObject.ParamSpec) -> None:
         config_manager.set_style(new_style.get_string())
         Application.apply_style()
 

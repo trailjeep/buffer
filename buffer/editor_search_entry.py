@@ -12,7 +12,7 @@ class EditorSearchEntry(Gtk.Box):
     text = Gtk.Template.Child()
     _info = Gtk.Template.Child()
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__occurrence_count = 0
         self.__occurrence_position = 0
         super().__init__()

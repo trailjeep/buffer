@@ -1,14 +1,16 @@
 from gi.repository import GObject
 
 import logging
+from typing import Callable, Dict
 
 import buffer.config_manager as config_manager
 from buffer import const
 
 
 class MigrationAssistant(GObject.Object):
-    def __init__(self):
-        self.__version_migrations = {}
+
+    def __init__(self) -> None:
+        self.__version_migrations: Dict[str, Callable[[], None]] = {}
 
     def handle_version_migration(self) -> None:
         previous_version = config_manager.get_last_launched_version()

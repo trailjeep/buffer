@@ -11,7 +11,7 @@ class ThemeSelector(Gtk.Box):
     _light = Gtk.Template.Child()
     _dark = Gtk.Template.Child()
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.__populate()
         config_manager.settings.connect(
