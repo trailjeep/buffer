@@ -64,9 +64,7 @@ class EditorTextView(GtkSource.View):
         self.add_controller(controller)
 
         self.__css_provider = Gtk.CssProvider()
-        self.get_style_context().add_provider(
-            self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER
-        )
+        self.get_style_context().add_provider(self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def do_size_allocate(self, width: int, height: int, baseline: int) -> None:
         """Allocates widget with a transformation that translates the origin to the position in

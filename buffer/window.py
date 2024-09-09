@@ -24,8 +24,10 @@ class Window(Adw.ApplicationWindow):
     MENU_BUTTON_SHOWN_INIT_DURATION = 2
     SETTING_CHANGE_NOTIFICATION_DURATION = 3.0
     LINE_LENGTH_STEP = 50
+    MARGIN_BELOW_CURSOR = 22
 
     _textview = Gtk.Template.Child()
+    _scrolled_window = Gtk.Template.Child()
     _menu_button = Gtk.Template.Child()
     _close_button = Gtk.Template.Child()
     _revealer = Gtk.Template.Child()
@@ -103,6 +105,11 @@ class Window(Adw.ApplicationWindow):
 
         if config_manager.get_spelling_enabled():
             self._textview.spellchecker_enabled = True
+
+        # Maintain a margin between the cursor and the bottom of the window
+        self._textview.get_buffer().connect(
+            "changed", lambda _o: GLib.idle_add(self.__check_and_scroll_for_cursor)
+        )
 
     def update_style(self) -> None:
         """Update style for dark mode and high contrast."""
@@ -295,6 +302,18 @@ class Window(Adw.ApplicationWindow):
     def __on_visible_dialogs_changed(self) -> None:
         visible = self.get_visible_dialog() is not None
         self.__cancel_action.set_enabled(not visible)
+
+    def __check_and_scroll_for_cursor(self) -> None:
+        buffer = self._textview.get_buffer()
+        insert = buffer.get_iter_at_mark(buffer.get_insert())
+
+        rect = self._textview.get_iter_location(insert)
+        adj = self._scrolled_window.get_vadjustment()
+        lowest_visible = self._textview.get_top_margin() + rect.y + rect.height
+        visible_below_cursor = adj.get_value() + adj.get_page_size() - lowest_visible
+        if visible_below_cursor < self.MARGIN_BELOW_CURSOR:
+            scroll_to = lowest_visible + self.MARGIN_BELOW_CURSOR - adj.get_page_size()
+            adj.set_value(scroll_to)
 
     def __setup_actions(self) -> None:
         app = Gio.Application.get_default()

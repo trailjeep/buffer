@@ -153,7 +153,9 @@ class EditorSearchHeaderBar(Gtk.Box):
         self.__action_group = action_group
         app.get_active_window().insert_action_group("editor-search", action_group)
 
-    def __on_context_forward(self, context: GtkSource.SearchContext, result: Gio.AsyncResult) -> None:
+    def __on_context_forward(
+        self, context: GtkSource.SearchContext, result: Gio.AsyncResult
+    ) -> None:
         if not self.__current_match_tag:
             return
         success, match_start, match_end, __ = context.forward_finish(result)
@@ -170,7 +172,9 @@ class EditorSearchHeaderBar(Gtk.Box):
             self.__restarting_with_nonempty_term = False
         self.__replace_action.set_enabled(success)
 
-    def __on_context_backward(self, context: GtkSource.SearchContext, result: Gio.AsyncResult) -> None:
+    def __on_context_backward(
+        self, context: GtkSource.SearchContext, result: Gio.AsyncResult
+    ) -> None:
         if not self.__current_match_tag:
             return
         success, match_start, match_end, __ = context.backward_finish(result)
