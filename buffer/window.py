@@ -147,7 +147,7 @@ class Window(Adw.ApplicationWindow):
             return
 
         if y < self.get_height() / 10:
-            self.__reveal_menu()
+            self.__reveal_buttons()
 
     @Gtk.Template.Callback()
     def _on_key_pressed(
@@ -176,7 +176,7 @@ class Window(Adw.ApplicationWindow):
             return Gdk.EVENT_PROPAGATE
 
         if not self._menu_button.get_active():
-            self.__hide_menu()
+            self.__hide_buttons()
         return Gdk.EVENT_PROPAGATE
 
     @Gtk.Template.Callback()
@@ -185,7 +185,7 @@ class Window(Adw.ApplicationWindow):
     ) -> bool:
         if gesture.get_current_button() == 1:
             if self._revealer.get_reveal_child() and not self._menu_button.get_active():
-                self.__hide_menu()
+                self.__hide_buttons()
         elif gesture.get_current_button() == 3:
             # For libspelling we need to move the cursor manually before showing the popup, but we
             # avoid doing that when there's a selection.
@@ -205,7 +205,7 @@ class Window(Adw.ApplicationWindow):
 
     def __on_line_length_changed(self) -> None:
         length = config_manager.get_line_length()
-        logging.debug(f"Line length now {length}px")
+        logging.info(f"Line length now {length}px")
         self.__refresh_line_length_from_setting()
 
     def __on_increase_line_length(self) -> None:
@@ -260,7 +260,7 @@ class Window(Adw.ApplicationWindow):
         if not self.is_active():
             return
 
-        self.__reveal_menu()
+        self.__reveal_buttons()
         if self.__initialising:
             if self.__paste_during_init:
                 clipboard = self._textview.get_primary_clipboard()
@@ -268,14 +268,20 @@ class Window(Adw.ApplicationWindow):
             self.__initialising = False
 
     def __on_menu_active_changed(self) -> None:
-        if not self._menu_button.get_active():
+        if self._menu_button.get_active():
+            if self.__timeout_signal_id:
+                GLib.source_remove(self.__timeout_signal_id)
+                self.__timeout_signal_id = None
+                self.__motion_during_menu_hide_timeout = None
+        else:
             self._textview.grab_focus()
+            self.__hide_buttons()
 
     def __on_window_fullscreened(self) -> None:
         if self.is_fullscreen():
-            self.__hide_menu()
+            self.__hide_buttons()
         else:
-            self.__reveal_menu()
+            self.__reveal_buttons()
 
     def __on_desktop_setting_changed(
         self, _sender_name: str, _signal_name: str, _parameters: str, data: GLib.Variant
@@ -298,6 +304,11 @@ class Window(Adw.ApplicationWindow):
     def __on_cancel(self) -> None:
         if self._toolbar_view.get_reveal_top_bars():
             self.__exit_search()
+
+    def __on_menu_shortcut(self) -> None:
+        if not self._revealer.get_reveal_child():
+            self._revealer.set_reveal_child(True)
+        self._menu_button.popup()
 
     def __on_visible_dialogs_changed(self) -> None:
         visible = self.get_visible_dialog() is not None
@@ -373,6 +384,12 @@ class Window(Adw.ApplicationWindow):
         app.set_accels_for_action("win.go-back-or-cancel", ["Escape"])
         self.__cancel_action = action
 
+        action = Gio.SimpleAction.new("menu")
+        action.connect("activate", lambda _o, _v: self.__on_menu_shortcut())
+        action_group.add_action(action)
+        app.set_accels_for_action("win.menu", ["F10"])
+        self.__cancel_action = action
+
         self.insert_action_group("win", action_group)
         self.__action_group = action_group
 
@@ -431,27 +448,39 @@ class Window(Adw.ApplicationWindow):
         self._textview.line_length = length_for_view
         self._textview.queue_resize()
 
-    def __hide_menu(self) -> None:
+    def __hide_buttons(self) -> None:
+        if self.__timeout_signal_id:
+            GLib.source_remove(self.__timeout_signal_id)
+            self.__timeout_signal_id = None
+        self.__motion_during_menu_hide_timeout = None
+        self._revealer.set_reveal_child(False)
+
+    def __hide_buttons_if_no_motion(self) -> None:
         if self.__motion_during_menu_hide_timeout:
             elapsed = time.time() - self.__motion_during_menu_hide_timeout
             remainder = self.MENU_BUTTON_SHOWN_DURATION - elapsed
-            self.__timeout_signal_id = GLib.timeout_add(remainder * 1000, self.__hide_menu)
-        else:
-            self._revealer.set_reveal_child(False)
-            self.__timeout_signal_id = None
-        self.__motion_during_menu_hide_timeout = None
+            if remainder > 0:
+                self.__timeout_signal_id = GLib.timeout_add(
+                    remainder * 1000, self.__hide_buttons_if_no_motion
+                )
+                return
 
-    def __reveal_menu(self) -> None:
+        self.__hide_buttons()
+
+    def __reveal_buttons(self) -> None:
         if not self._revealer.get_reveal_child():
             self._revealer.set_reveal_child(True)
+        if self.__timeout_signal_id:
+            self.__motion_during_menu_hide_timeout = time.time()
+        elif not self._menu_button.get_active():
             duration = (
                 self.MENU_BUTTON_SHOWN_INIT_DURATION
                 if self.__initialising
                 else self.MENU_BUTTON_SHOWN_DURATION
             )
-            self.__timeout_signal_id = GLib.timeout_add(duration * 1000, self.__hide_menu)
-        else:
-            self.__motion_during_menu_hide_timeout = time.time()
+            self.__timeout_signal_id = GLib.timeout_add(
+                duration * 1000, self.__hide_buttons_if_no_motion
+            )
 
     def __notify_line_length_change(self, length: int) -> None:
         # Translators: Description, notification, {0} is a number
@@ -474,7 +503,7 @@ class Window(Adw.ApplicationWindow):
         self._search_header_bar.enter(resuming, for_replace)
         self._toolbar_view.set_reveal_top_bars(True)
         if self._revealer.get_reveal_child():
-            self.__hide_menu()
+            self.__hide_buttons()
 
     def __exit_search(self) -> None:
         self._textview.grab_focus()
