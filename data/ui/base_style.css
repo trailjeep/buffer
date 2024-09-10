@@ -8,7 +8,7 @@
 }
 
 overlay revealer windowhandle > box {
-  color: color-mix(in srgb, var(--view-bg-color) 90%, transparent);
+  background-color: color-mix(in srgb, var(--view-bg-color) 90%, transparent);
 }
 
 /* Tweaks for piggybacking on libadwaita's window controls styling for close button; brittle

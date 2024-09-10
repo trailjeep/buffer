@@ -17,3 +17,13 @@ extend-select = ["E501"]
 "buffer/editor_text_view.py" = ["E402"]
 "buffer/editor_search_header_bar.py" = ["E402"]
 "buffer/window.py" = ["E402"]
+
+[tool.mypy]
+ignore_missing_imports = true
+follow_imports = "silent"
+python_version = "3.8"
+packages = "buffer"
+
+[[tool.mypy.overrides]]
+module = "buffer.application,buffer.preferences_dialog,buffer.window"
+disallow_subclassing_any = false

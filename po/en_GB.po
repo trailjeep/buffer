@@ -1,6 +1,6 @@
 # British English translation for buffer.
 # Copyright (C) 2024 the author(s) of buffer.
-# This file is distributed under the same license as the buffer package.
+# This file is distributed under the same license as buffer.
 # Chris Heywood <nospam@nospam.nospam>, 2024.
 #
 msgid ""

@@ -185,7 +185,7 @@ class EditorTextView(GtkSource.View):
         self.__css_provider.load_from_data(style, -1)
 
     def __init_spellchecker(self) -> None:
-        if self.__spellchecker:
+        if self.__spellchecker is None:
             return
 
         gi.require_version("Spelling", "1")
@@ -223,6 +223,9 @@ class EditorTextView(GtkSource.View):
         )
 
     def __verify_preferred_language_in_use(self, pref_language: str) -> None:
+        if self.__spellchecker is None:
+            return
+
         language_in_use = self.__spellchecker.get_language()
         if language_in_use != pref_language:
             logging.warning(
@@ -243,6 +246,9 @@ class EditorTextView(GtkSource.View):
             config_manager.set_spelling_language("")
 
     def __spelling_language_changed(self) -> None:
+        if self.__spellchecker is None:
+            return
+
         language = self.__spellchecker.get_language()
         logging.info(f'New spelling language "{language}"')
         config_manager.set_spelling_language(language)
