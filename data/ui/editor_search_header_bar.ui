@@ -36,7 +36,7 @@
                     <child>
                       <object class="GtkButton" id="_backward_button">
                         <!-- Translators: Button tooltip -->
-                        <property name="tooltip-text" translatable="yes">Previous match</property>
+                        <property name="tooltip-text" translatable="yes">Previous Match</property>
                         <property name="icon-name">up-large-symbolic</property>
                         <property name="action-name">editor-search.backward</property>
                       </object>
@@ -44,7 +44,7 @@
                     <child>
                       <object class="GtkButton" id="_forward_button">
                         <!-- Translators: Button tooltip -->
-                        <property name="tooltip-text" translatable="yes">Next match</property>
+                        <property name="tooltip-text" translatable="yes">Next Match</property>
                         <property name="icon-name">down-large-symbolic</property>
                         <property name="action-name">editor-search.forward</property>
                       </object>

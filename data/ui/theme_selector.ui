@@ -23,10 +23,10 @@
             <property name="action-name">app.set-style-variant</property>
             <property name="action-target">'follow'</property>
             <!-- Translators: Description, tooltip -->
-            <property name="tooltip-text" translatable="yes">Follow system style</property>
+            <property name="tooltip-text" translatable="yes">Follow System Style</property>
             <accessibility>
               <!-- Translators: Description, accessibility -->
-              <property name="label" translatable="yes">Follow system style</property>
+              <property name="label" translatable="yes">Follow System Style</property>
             </accessibility>
           </object>
         </child>
@@ -42,10 +42,10 @@
             <property name="action-name">app.set-style-variant</property>
             <property name="action-target">'light'</property>
             <!-- Translators: Description, tooltip -->
-            <property name="tooltip-text" translatable="yes">Light style</property>
+            <property name="tooltip-text" translatable="yes">Light Style</property>
             <accessibility>
               <!-- Translators: Description, accessibility -->
-              <property name="label" translatable="yes">Light style</property>
+              <property name="label" translatable="yes">Light Style</property>
             </accessibility>
           </object>
         </child>
@@ -61,10 +61,10 @@
             <property name="action-name">app.set-style-variant</property>
             <property name="action-target">'dark'</property>
             <!-- Translators: Description, tooltip -->
-            <property name="tooltip-text" translatable="yes">Dark style</property>
+            <property name="tooltip-text" translatable="yes">Dark Style</property>
             <accessibility>
               <!-- Translators: Description, accessibility -->
-              <property name="label" translatable="yes">Dark style</property>
+              <property name="label" translatable="yes">Dark Style</property>
             </accessibility>
           </object>
         </child>

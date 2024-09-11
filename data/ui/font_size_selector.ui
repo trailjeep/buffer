@@ -12,11 +12,11 @@
           <object class="GtkButton" id="_decrease_button">
             <property name="icon-name">list-remove-symbolic</property>
             <!-- Translators: Button tooltip-->
-            <property name="tooltip-text" translatable="yes">Zoom out</property>
+            <property name="tooltip-text" translatable="yes">Zoom Out</property>
             <property name="action-name">font-size-selector.decrease</property>
             <accessibility>
               <!-- Translators: Button -->
-              <property name="label" translatable="yes">Zoom out</property>
+              <property name="label" translatable="yes">Zoom Out</property>
             </accessibility>
             <style>
               <class name="circular"/>
@@ -32,11 +32,11 @@
           <object class="GtkButton" id="_increase_button">
             <property name="icon-name">list-add-symbolic</property>
             <!-- Translators: Button tooltip-->
-            <property name="tooltip-text" translatable="yes">Zoom in</property>
+            <property name="tooltip-text" translatable="yes">Zoom In</property>
             <property name="action-name">font-size-selector.increase</property>
             <accessibility>
               <!-- Translators: Button -->
-              <property name="label" translatable="yes">Zoom in</property>
+              <property name="label" translatable="yes">Zoom In</property>
             </accessibility>
             <style>
               <class name="circular"/>
