@@ -7,7 +7,7 @@ check-filenames = true
 
 [tool.ruff]
 line-length = 100
-target-version = "py38"
+target-version = "py39"
 
 [tool.ruff.lint]
 extend-select = ["E501"]
@@ -21,7 +21,7 @@ extend-select = ["E501"]
 [tool.mypy]
 ignore_missing_imports = true
 follow_imports = "silent"
-python_version = "3.8"
+python_version = "3.9"
 packages = "buffer"
 
 [[tool.mypy.overrides]]

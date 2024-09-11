@@ -25,8 +25,8 @@ else
   message('Found python3 binary')
 endif
 
-if not python_bin.language_version().version_compare('>= 3.8')
-  error('Python 3.8 or newer is required.')
+if not python_bin.language_version().version_compare('>= 3.9')
+  error('Python 3.9 or newer is required.')
 endif
 
 
