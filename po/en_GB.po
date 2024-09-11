@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buffer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 19:36+1000\n"
-"PO-Revision-Date: 2024-08-05 19:37+1000\n"
+"POT-Creation-Date: 2024-09-11 13:12+1000\n"
+"PO-Revision-Date: 2024-09-11 13:12+1000\n"
 "Last-Translator: Chris Heywood <nospam@nospam.nospam>\n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -74,13 +74,15 @@ msgstr "Back"
 
 #. Translators: Button tooltip
 #: data/ui/editor_search_header_bar.ui:39
-msgid "Previous match"
-msgstr "Previous match"
+#| msgid "Previous match"
+msgid "Previous Match"
+msgstr "Previous Match"
 
 #. Translators: Button tooltip
 #: data/ui/editor_search_header_bar.ui:47
-msgid "Next match"
-msgstr "Next match"
+#| msgid "Next match"
+msgid "Next Match"
+msgstr "Next Match"
 
 #. Translators: Button
 #: data/ui/editor_search_header_bar.ui:77
@@ -90,14 +92,16 @@ msgstr "Replace"
 #. Translators: Button tooltip
 #. Translators: Button
 #: data/ui/font_size_selector.ui:15 data/ui/font_size_selector.ui:19
-msgid "Zoom out"
-msgstr "Zoom out"
+#| msgid "Zoom out"
+msgid "Zoom Out"
+msgstr "Zoom Out"
 
 #. Translators: Button tooltip
 #. Translators: Button
 #: data/ui/font_size_selector.ui:35 data/ui/font_size_selector.ui:39
-msgid "Zoom in"
-msgstr "Zoom in"
+#| msgid "Zoom in"
+msgid "Zoom In"
+msgstr "Zoom In"
 
 #. Translators: Title
 #: data/ui/preferences_dialog.ui:11
@@ -169,20 +173,23 @@ msgstr "Show Recovery Files"
 #. Translators: Description, tooltip
 #. Translators: Description, accessibility
 #: data/ui/theme_selector.ui:26 data/ui/theme_selector.ui:29
-msgid "Follow system style"
-msgstr "Follow system style"
+#| msgid "Follow system style"
+msgid "Follow System Style"
+msgstr "Follow System Style"
 
 #. Translators: Description, tooltip
 #. Translators: Description, accessibility
 #: data/ui/theme_selector.ui:45 data/ui/theme_selector.ui:48
-msgid "Light style"
-msgstr "Light style"
+#| msgid "Light style"
+msgid "Light Style"
+msgstr "Light Style"
 
 #. Translators: Description, tooltip
 #. Translators: Description, accessibility
 #: data/ui/theme_selector.ui:64 data/ui/theme_selector.ui:67
-msgid "Dark style"
-msgstr "Dark style"
+#| msgid "Dark style"
+msgid "Dark Style"
+msgstr "Dark Style"
 
 #. Translators: Menu item
 #: data/ui/window.ui:17
@@ -201,23 +208,23 @@ msgid "{0} of {1}"
 msgstr "{0} of {1}"
 
 #. Translators: Description, notification
-#: buffer/window.py:210
+#: buffer/window.py:216
 msgid "Line length limit already disabled"
 msgstr "Line length limit already disabled"
 
 #. Translators: Description, notification
-#: buffer/window.py:220
+#: buffer/window.py:226
 msgid "Line length limit disabled"
 msgstr "Line length limit disabled"
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:438
+#: buffer/window.py:487
 #, python-brace-format
 msgid "Line length now {0}px"
 msgstr "Line length now {0}px"
 
 #. Translators: Description, notification, {0} is a number
-#: buffer/window.py:444
+#: buffer/window.py:493
 #, python-brace-format
 msgid "Font size now {0}pt"
 msgstr "Font size now {0}pt"
