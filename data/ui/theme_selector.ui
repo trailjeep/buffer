@@ -20,8 +20,7 @@
             <property name="hexpand">True</property>
             <property name="halign">center</property>
             <property name="focus-on-click">False</property>
-            <property name="action-name">app.set-style-variant</property>
-            <property name="action-target">'follow'</property>
+            <signal name="toggled" handler="_on_option_selected" />
             <!-- Translators: Description, tooltip -->
             <property name="tooltip-text" translatable="yes">Follow System Style</property>
             <accessibility>
@@ -36,11 +35,11 @@
               <class name="theme-selector"/>
               <class name="light"/>
             </style>
+            <property name="group">_follow</property>
             <property name="hexpand">True</property>
             <property name="halign">center</property>
             <property name="focus-on-click">False</property>
-            <property name="action-name">app.set-style-variant</property>
-            <property name="action-target">'light'</property>
+            <signal name="toggled" handler="_on_option_selected" />
             <!-- Translators: Description, tooltip -->
             <property name="tooltip-text" translatable="yes">Light Style</property>
             <accessibility>
@@ -55,11 +54,11 @@
               <class name="theme-selector"/>
               <class name="dark"/>
             </style>
+            <property name="group">_follow</property>
             <property name="hexpand">True</property>
             <property name="halign">center</property>
             <property name="focus-on-click">False</property>
-            <property name="action-name">app.set-style-variant</property>
-            <property name="action-target">'dark'</property>
+            <signal name="toggled" handler="_on_option_selected" />
             <!-- Translators: Description, tooltip -->
             <property name="tooltip-text" translatable="yes">Dark Style</property>
             <accessibility>

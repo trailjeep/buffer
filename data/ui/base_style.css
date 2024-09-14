@@ -50,9 +50,18 @@ window .themeselector checkbutton.light {
 window .themeselector checkbutton.dark {
   background-color: #202020;
 }
-window .themeselector checkbutton check {
+window .themeselector checkbutton radio {
   -gtk-icon-source: none;
   border: none;
   background: none;
   box-shadow: none;
+  min-width: 12px;
+  min-height: 12px;
+  transform: translate(27px, 14px);
+  padding: 2px;
+}
+window .themeselector checkbutton radio:checked {
+  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
 }
