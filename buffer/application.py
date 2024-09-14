@@ -177,11 +177,6 @@ class Application(Adw.Application):
             lambda _o, _v: self.__create_window_from_clipboard(),
             "<Control><Shift>v",
         )
-        add_action(
-            "set-style-variant",
-            self.__set_style_variant,
-            parameter_type=GLib.VariantType("s"),
-        )
 
     def __create_window(self) -> Window:
         window = Window(self, self.__dbus_proxy)
@@ -224,10 +219,6 @@ class Application(Adw.Application):
     def __show_preferences_dialog(self) -> None:
         window = self.get_active_window()
         PreferencesDialog().present(window)
-
-    def __set_style_variant(self, _action: Gio.SimpleAction, new_style: GObject.ParamSpec) -> None:
-        config_manager.set_style(new_style.get_string())
-        Application.apply_style()
 
     @staticmethod
     def apply_style() -> None:
