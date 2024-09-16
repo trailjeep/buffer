@@ -7,8 +7,6 @@
     <property name="vexpand">True</property>
     <property name="margin-start">10</property>
     <property name="margin-end">10</property>
-    <!-- Provide some space above keyboard on mobile -->
-    <property name="margin-bottom">5</property>
     <property name="wrap-mode">word-char</property>
     <property name="accepts-tab">False</property>
     <property name="input-hints">word-completion</property>
