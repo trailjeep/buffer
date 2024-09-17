@@ -30,11 +30,11 @@ if not python_bin.language_version().version_compare('>= 3.9')
 endif
 
 
-dependency('glib-2.0', version: '>= 2.66')
-dependency('gio-2.0', version: '>= 2.66')
+dependency('glib-2.0', version: '>= 2.76')
+dependency('gio-2.0', version: '>= 2.76')
 dependency('gobject-introspection-1.0', version: '>=1.66.0')
-dependency('gtk4', version: '>=4.14')
-dependency('libadwaita-1', version: '>=1.5')
+dependency('gtk4', version: '>=4.16')
+dependency('libadwaita-1', version: '>=1.6')
 dependency('gtksourceview-5', version: '>= 5.6')
 
 python_dir = python_bin.get_install_dir()
