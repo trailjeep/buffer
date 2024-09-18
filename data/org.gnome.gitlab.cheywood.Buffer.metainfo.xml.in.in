@@ -64,6 +64,23 @@
   </screenshots>
 
   <releases>
+    <release version="0.9.6" date="2024-09-19T00:00:00Z">
+      <description translate="no">
+        <p>Changes</p>
+        <ul>
+          <li>Added margin below cursor when appending at bottom of window</li>
+          <li>Added F10 menu shortcut</li>
+          <li>Made ctrl-f refocus the search entry</li>
+          <li>Switched to v47 SDK</li>
+          <li>German translation updated</li>
+          <li>Other minor changes (see git log)</li>
+        </ul>
+        <p>Contributors</p>
+        <ul>
+          <li>Jürgen Benvenuti</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.5" date="2024-08-08T00:00:00Z">
       <description translate="no">
         <p>Fixes issue editing while searching and makes ctrl-f refocus search.</p>
