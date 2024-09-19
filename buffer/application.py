@@ -96,9 +96,7 @@ class Application(Adw.Application):
         migration_assistant.handle_version_migration()
 
         load_widgets()
-
         self.__setup_actions()
-
         self.__create_window()
 
     def __on_activate(self) -> None:
