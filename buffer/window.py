@@ -388,7 +388,6 @@ class Window(Adw.ApplicationWindow):
         action.connect("activate", lambda _o, _v: self.__on_menu_shortcut())
         action_group.add_action(action)
         app.set_accels_for_action("win.menu", ["F10"])
-        self.__cancel_action = action
 
         self.insert_action_group("win", action_group)
         self.__action_group = action_group

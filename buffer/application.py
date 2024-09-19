@@ -33,6 +33,7 @@ class Application(Adw.Application):
         self.__windows: List[Window] = []
         self.__actions: Dict[str, Gio.SimpleAction] = {}
         self.__emergency_saves_manager = EmergencySavesManager()
+        self.__preferences_dialog = None
 
         self.__add_cli_options()
         self.__initialise_styling()
@@ -217,8 +218,16 @@ class Application(Adw.Application):
         about_dialog.present(window)
 
     def __show_preferences_dialog(self) -> None:
+        if self.__preferences_dialog is not None:
+            return
+
+        self.__preferences_dialog = PreferencesDialog()
+        self.__preferences_dialog.connect("closed", self.__on_preferences_dialog_closed)
         window = self.get_active_window()
-        PreferencesDialog().present(window)
+        self.__preferences_dialog.present(window)
+
+    def __on_preferences_dialog_closed(self, _dialog: GObject.Object) -> None:
+        self.__preferences_dialog = None
 
     @staticmethod
     def apply_style() -> None:

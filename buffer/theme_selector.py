@@ -5,6 +5,8 @@ import buffer.config_manager as config_manager
 
 @Gtk.Template(resource_path="/org/gnome/gitlab/cheywood/Buffer/ui/theme_selector.ui")
 class ThemeSelector(Gtk.Box):
+    """Dark light theme selector widget for menus."""
+
     __gtype_name__ = "ThemeSelector"
 
     _follow = Gtk.Template.Child()
