@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Filipe Motta <luizfilipemotta@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: unnamed project\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-11 13:12+1000\n"
+"PO-Revision-Date: 2024-09-19 03:43-0300\n"
+"Last-Translator: Filipe Motta <luizfilipemotta@gmail.com>\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Gtranslator 46.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#. Translators: Buffer is the app name, do not translate
+#: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:4
+msgid "Buffer"
+msgstr "Buffer"
+
+#. Translators: App description/comment in .desktop file
+#. Translators: The application's summary / tagline
+#: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:6
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:11
+msgid "Embrace ephemeral text"
+msgstr "Abrace o texto efêmero"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.gitlab.cheywood.Buffer.desktop.in.in:14
+msgid ""
+"text;minimal;distraction;editor;focused;write;document;scratchpad;temporary;"
+"buffer;gnome;gtk;"
+msgstr ""
+"texto;minimalista;distração;editor;focado;foco;escrever;escrita;documento;"
+"bloco;notas;nota;temporário;buffer;gnome;gtk;"
+
+#. Translators: Part of metainfo description. "Buffer" is the application name; do not translate.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:48
+msgid ""
+"Celebrating transience, Buffer provides a minimal editing space for all "
+"those things that don't need keeping."
+msgstr ""
+"Celebrando a transitoriedade, o Buffer oferece um espaço de edição mínimo "
+"para todas aquelas coisas que não precisam ser salvas."
+
+#. Translators: Part of metainfo description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:50
+msgid "Designed for keyboard workflows on desktop."
+msgstr "Projetado para fluxos de trabalho focados no teclado em desktops."
+
+#. Translators: A screenshot description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:57
+msgid "Edit screen"
+msgstr "Tela de edição"
+
+#. Translators: A screenshot description.
+#: data/org.gnome.gitlab.cheywood.Buffer.metainfo.xml.in.in:62
+msgid "Preferences dialog"
+msgstr "Diálogo de Preferências"
+
+#. Add your name to the translator credits list
+#: data/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr "Filipe Motta <luizfilipemotta@gmail.com>"
+
+#. Translators: Button
+#: data/ui/editor_search_header_bar.ui:12
+msgid "Back"
+msgstr "Voltar"
+
+#. Translators: Button tooltip
+#: data/ui/editor_search_header_bar.ui:39
+msgid "Previous Match"
+msgstr "Correspondência anterior"
+
+#. Translators: Button tooltip
+#: data/ui/editor_search_header_bar.ui:47
+msgid "Next Match"
+msgstr "Próxima correspondência"
+
+#. Translators: Button
+#: data/ui/editor_search_header_bar.ui:77
+msgid "Replace"
+msgstr "Substituir"
+
+#. Translators: Button tooltip
+#. Translators: Button
+#: data/ui/font_size_selector.ui:15 data/ui/font_size_selector.ui:19
+msgid "Zoom Out"
+msgstr "Reduzir"
+
+#. Translators: Button tooltip
+#. Translators: Button
+#: data/ui/font_size_selector.ui:35 data/ui/font_size_selector.ui:39
+msgid "Zoom In"
+msgstr "Ampliar"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:11
+msgid "Appearance"
+msgstr "Aparência"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:16
+msgid "Use Monospace Font"
+msgstr "Usar fonte monespaçada"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:24
+msgid "Limit Line Length"
+msgstr "Limitar comprimento de linha"
+
+#. Translators: Description, preference
+#: data/ui/preferences_dialog.ui:27
+msgid "When enabled use Ctrl + ↑ and Ctrl + ↓ to fine tune."
+msgstr ""
+"Quando ativado, use Ctrl + ↑ e Ctrl + ↓ no teclado para fazer o ajuste fino."
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:34
+msgid "Show Line Numbers"
+msgstr "Mostrar números de linha"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:45
+msgid "Behavior"
+msgstr "Comportamento"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:50
+msgid "Check Spelling"
+msgstr "Verificar ortografia"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:58
+msgid "Quit Only Closes Current Window"
+msgstr "Sair fecha somente a janela atual"
+
+#. Translators: Description, preference
+#: data/ui/preferences_dialog.ui:61
+msgid "When disabled Ctrl Q will close all windows (on all workspaces)."
+msgstr ""
+"Quando desativado, Ctrl + Q fechará todas as janelas do Buffer (em todos os "
+"espaços de trabalho)."
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:68
+msgid "Show Window Close Button"
+msgstr "Mostrar botão Fechar na janela"
+
+#. Translators: Title
+#: data/ui/preferences_dialog.ui:76
+msgid "Save Emergency Recovery Files"
+msgstr "Salvar arquivos de recuperação de emergência"
+
+#. Translators: Description, preference
+#: data/ui/preferences_dialog.ui:79
+msgid ""
+"Each buffer is saved when (and only when) closed. The last ten are kept."
+msgstr ""
+"Cada buffer será salvo quando (e somente quando) for fechado. Os últimos 10 "
+"serão mantidos."
+
+#. Translators: Button
+#: data/ui/preferences_dialog.ui:90
+msgid "Show Recovery Files"
+msgstr "Mostrar arquivos de recuperação"
+
+#. Translators: Description, tooltip
+#. Translators: Description, accessibility
+#: data/ui/theme_selector.ui:26 data/ui/theme_selector.ui:29
+msgid "Follow System Style"
+msgstr "Seguir o estilo do sistema"
+
+#. Translators: Description, tooltip
+#. Translators: Description, accessibility
+#: data/ui/theme_selector.ui:45 data/ui/theme_selector.ui:48
+msgid "Light Style"
+msgstr "Modo claro"
+
+#. Translators: Description, tooltip
+#. Translators: Description, accessibility
+#: data/ui/theme_selector.ui:64 data/ui/theme_selector.ui:67
+msgid "Dark Style"
+msgstr "Modo escuro"
+
+#. Translators: Menu item
+#: data/ui/window.ui:17
+msgid "Preferences"
+msgstr "Preferências"
+
+#. Translators: Menu item, Buffer is the application name and shouldn't be translated
+#: data/ui/window.ui:22
+msgid "About Buffer"
+msgstr "Sobre o Buffer"
+
+#. Translators: Description, {0} the current position in {1} a number of search results
+#: buffer/editor_search_entry.py:66
+#, python-brace-format
+msgid "{0} of {1}"
+msgstr "{0} de {1}"
+
+#. Translators: Description, notification
+#: buffer/window.py:216
+msgid "Line length limit already disabled"
+msgstr "Limite de comprimento de linha já desativado"
+
+#. Translators: Description, notification
+#: buffer/window.py:226
+msgid "Line length limit disabled"
+msgstr "Limite de comprimento de linha desativado"
+
+#. Translators: Description, notification, {0} is a number
+#: buffer/window.py:487
+#, python-brace-format
+msgid "Line length now {0}px"
+msgstr "O comprimento de linha agora é de {0}px"
+
+#. Translators: Description, notification, {0} is a number
+#: buffer/window.py:493
+#, python-brace-format
+msgid "Font size now {0}pt"
+msgstr "O tamanho da fonte agora é de {0}pt"
