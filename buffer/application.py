@@ -5,7 +5,7 @@ from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 import logging
 from signal import signal, SIGINT, SIGTERM
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Optional
 
 import buffer.const as const
 import buffer.config_manager as config_manager
@@ -30,10 +30,10 @@ class Application(Adw.Application):
             register_session=True,
         )
 
-        self.__windows: List[Window] = []
-        self.__actions: Dict[str, Gio.SimpleAction] = {}
+        self.__windows: list[Window] = []
+        self.__actions: dict[str, Gio.SimpleAction] = {}
         self.__emergency_saves_manager = EmergencySavesManager()
-        self.__preferences_dialog = None
+        self.__preferences_dialog: Optional[PreferencesDialog] = None
 
         self.__add_cli_options()
         self.__initialise_styling()
@@ -125,7 +125,7 @@ class Application(Adw.Application):
                 window.close()
 
     def __initialise_styling(self) -> None:
-        self.__base_css_resource = "{}/ui/base_style.css".format(self.props.resource_base_path)
+        self.__base_css_resource = f"{self.props.resource_base_path}/ui/base_style.css"
         self.__base_css_provider = None
         self.__index_category_label_css_provider = None
         style_manager = Adw.StyleManager.get_default()

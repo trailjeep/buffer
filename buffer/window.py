@@ -6,7 +6,7 @@ from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, GtkSource, Pango
 
 import logging
 import time
-from typing import Dict, Optional
+from typing import Optional
 
 import buffer.config_manager as config_manager
 from buffer import const
@@ -41,7 +41,7 @@ class Window(Adw.ApplicationWindow):
         self.__dbus_proxy = dbus_proxy
 
         self.__initialising = True
-        self.__font_families: Dict[str, str] = {}
+        self.__font_families: dict[str, str] = {}
         self.__timeout_signal_id = None
         self.__motion_during_menu_hide_timeout: Optional[float] = None
         self.__paste_during_init = False
