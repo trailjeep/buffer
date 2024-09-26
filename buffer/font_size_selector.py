@@ -90,7 +90,7 @@ class FontSizeSelector(Gtk.Box):
 
     def __refresh_from_setting(self) -> None:
         size = config_manager.get_font_size()
-        self._label.set_label("{}pt".format(size))
+        self._label.set_label(f"{size}pt")
         ind = self.VALID_SIZES.index(size)
         self.__increase_action.set_enabled(ind + 1 < len(self.VALID_SIZES))
         self.__decrease_action.set_enabled(ind - 1 >= 0)
