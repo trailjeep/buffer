@@ -185,7 +185,7 @@ class EditorTextView(GtkSource.View):
         self.__css_provider.load_from_data(style, -1)
 
     def __init_spellchecker(self) -> None:
-        if self.__spellchecker is None:
+        if self.__spellchecker is not None:
             return
 
         gi.require_version("Spelling", "1")
