@@ -1,5 +1,5 @@
 project('buffer',
-        version: '0.9.6',
+        version: '0.9.7',
         meson_version: '>= 0.59',
         license: 'GPL-3.0-or-later'
        )

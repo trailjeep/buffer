@@ -64,6 +64,18 @@
   </screenshots>
 
   <releases>
+    <release version="0.9.7" date="2024-10-15T00:00:00Z">
+      <description translate="no">
+        <p>Spell checking has been fixed, Brazilian Portuguese and Norwegian Bokmål translations have been added and the German translation has been updated.</p>
+        <p>Contributors</p>
+        <ul>
+          <li>Filipe Motta</li>
+          <li>Jürgen Benvenuti</li>
+          <li>Sunniva Løvstad</li>
+        </ul>
+      </description>
+    </release>
+  <releases>
     <release version="0.9.6" date="2024-09-18T00:00:00Z">
       <description translate="no">
         <p>Changes</p>
