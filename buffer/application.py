@@ -4,7 +4,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 import logging
-from signal import signal, SIGINT, SIGTERM
+from signal import signal, SIGINT, SIGTERM, SIGHUP
 from typing import Any, Callable, Optional
 
 import buffer.const as const
@@ -54,6 +54,7 @@ class Application(Adw.Application):
 
         signal(SIGINT, lambda _s, _f: self.__quit())
         signal(SIGTERM, lambda _s, _f: self.__quit())
+        signal(SIGHUP, lambda _s, _f: self.__quit())
 
     def __on_handle_local_options(self, _obj: GObject.Object, options: GLib.VariantDict) -> int:
         """Handle options, setup logging."""
