@@ -1,3 +1,7 @@
+Forked from https://gitlab.gnome.org/cheywood/buffer
+
+This fork adds save contents when receiving SIGHUP (logout / reboot / poweroff)
+
 # Buffer
 
 Celebrating transience, Buffer provides a minimal editing space for all those things that don't need keeping. Designed for keyboard workflows on desktop.
